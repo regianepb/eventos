@@ -17,7 +17,7 @@ public class Connection {
     private final String senha;
     
     private Connection() {
-        url = "jdbc:postgresql://localhost/pedidos";
+        url = "jdbc:postgresql://localhost/gereventos";
         usuario = "postgres";
         senha = "postgres";
 

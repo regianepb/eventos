@@ -6,8 +6,15 @@ import java.util.Map;
 public class Despesas implements Parseable {
     private Long id;
     private String descricao;
-    private Long classif_despesas_id;
+    private ClassifDespesas classif_despesas_id;
+    
+    public Despesas() {
+    }
 
+    public Despesas(Long id) {
+        this.id = id;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -24,11 +31,11 @@ public class Despesas implements Parseable {
         this.descricao = descricao;
     }
 
-    public Long getClassif_despesas_id() {
+    public ClassifDespesas getClassif_despesas_id() {
         return classif_despesas_id;
     }
 
-    public void setClassif_despesas_id(Long classif_despesas_id) {
+    public void setClassif_despesas_id(ClassifDespesas classif_despesas_id) {
         this.classif_despesas_id = classif_despesas_id;
     }
 
@@ -43,7 +50,7 @@ public class Despesas implements Parseable {
     public void parse(Map<String, String> values) {
         id = Utils.parseLong(values.get("id"));
         descricao = values.get("descricao");
-        classif_despesas_id = Utils.parseLong(values.get("classif_despesas_id"));
+        classif_despesas_id = Utils.isEmpty(values.get("classif_despesas_id")) ? null : new ClassifDespesas(Utils.parseLong(values.get("classif_despesas_id")));                       
     }
     
 }
