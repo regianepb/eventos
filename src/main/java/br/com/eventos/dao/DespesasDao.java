@@ -35,7 +35,12 @@ public class DespesasDao {
         try {
             PreparedStatement stm = Connection.get().getParamStm("UPDATE DESPESAS SET DESCRICAO = ?, CLASSIF_DESPESAS_ID = ? WHERE ID = ?");
             stm.setString(1, despesas.getDescricao());
-            stm.setLong(2, despesas.getId());
+            if (despesas.getClassif_despesas_id()!= null && despesas.getClassif_despesas_id().getId() != null) {
+                stm.setLong(2, despesas.getClassif_despesas_id().getId());
+            } else {
+                stm.setNull(2, Types.INTEGER);
+            }            
+            stm.setLong(3, despesas.getId());
             stm.execute();
 
             return buscar(despesas.getId());
@@ -50,7 +55,7 @@ public class DespesasDao {
 
     public void excluir(Long id) throws Exception {
         try {
-            PreparedStatement stm = Connection.get().getParamStm("DELETE FROM CLASSIF_DESPESAS WHERE ID = ?");
+            PreparedStatement stm = Connection.get().getParamStm("DELETE FROM DESPESAS WHERE ID = ?");
             stm.setLong(1, id);
             stm.execute();
         } catch (SQLException ex) {
@@ -60,21 +65,21 @@ public class DespesasDao {
 
     public List<Despesas> listarTodos(String nome) throws Exception {
         try {
-            List<Despesas> despesass = new ArrayList<>();
+            List<Despesas> despesas = new ArrayList<>();
 
             PreparedStatement stm;
             if (Utils.isNotEmpty(nome)) {
-                stm = Connection.get().getParamStm("SELECT * FROM CLASSIF_DESPESAS WHERE UPPER(DESCRICAO) LIKE ? ORDER BY DESCRICAO");
+                stm = Connection.get().getParamStm("SELECT * FROM DESPESAS WHERE UPPER(DESCRICAO) LIKE ? ORDER BY DESCRICAO");
                 stm.setString(1, '%' + nome.toUpperCase().replaceAll(" ", "%") + '%');
             } else {
-                stm = Connection.get().getParamStm("SELECT * FROM CLASSIF_DESPESAS ORDER BY DESCRICAO");
+                stm = Connection.get().getParamStm("SELECT * FROM DESPESAS ORDER BY DESCRICAO");
             }
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                despesass.add(lerRegistro(rs));
+                despesas.add(lerRegistro(rs));
             }
-            return despesass;
+            return despesas;
         } catch (SQLException ex) {
             throw new Exception("Erro ao listar os registro", ex);
         }
@@ -85,7 +90,7 @@ public class DespesasDao {
             return null;
         } else {
             try {
-                PreparedStatement stm = Connection.get().getParamStm("SELECT * FROM CLASSIF_DESPESAS WHERE id = ?");
+                PreparedStatement stm = Connection.get().getParamStm("SELECT * FROM DESPESAS WHERE id = ?");
                 stm.setLong(1, id);
                 ResultSet rs = stm.executeQuery();
                 rs.next();
@@ -97,16 +102,23 @@ public class DespesasDao {
     }
 
     private Long buscarProximoId() throws SQLException {
-        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_despesass')");
+        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_despesas')");
         rs.next();
         return rs.getLong(1);
     }
 
     private Despesas lerRegistro(ResultSet rs) throws SQLException {
-        Despesas p = new Despesas();
-        p.setId(rs.getLong("id"));
-        p.setDescricao(rs.getString("descricao"));
-        return p;
+        try {
+            Despesas p = new Despesas();
+            ClassifDespesasDao classifDao = new ClassifDespesasDao();
+
+            p.setId(rs.getLong("id"));
+            p.setDescricao(rs.getString("descricao"));
+            p.setClassif_despesas_id(classifDao.buscar(rs.getLong("classif_despesas_id")));
+            return p;
+        } catch (Exception ex) {
+            throw new SQLException(ex);
+        }
     }
 
 }

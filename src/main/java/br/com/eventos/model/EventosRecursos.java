@@ -18,11 +18,6 @@ public class EventosRecursos implements Parseable {
         this.id = id;
     }
 
-  
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
     public Long getId() {
         return id;
     }
@@ -54,7 +49,16 @@ public class EventosRecursos implements Parseable {
     public void setQtd(BigDecimal qtd) {
         this.qtd = qtd;
     }
-      
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+       
     
               
     @Override
