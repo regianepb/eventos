@@ -10,21 +10,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 public final class Utils { 
-
-    private Utils() {
+            
+    private Utils() {        
         throw new UnsupportedOperationException("Classe não pode ser instanciada por ser um utilitário.");
     }
 
     public static LocalDateTime parseDate(String value, String pattern) {
-        return isEmpty(value) ? null : LocalDateTime.parse(value, DateTimeFormatter.ofPattern(pattern));
-    }
+        return isEmpty(value) ? null : LocalDateTime.parse(value, DateTimeFormatter.ofPattern(pattern));        
+    }    
+    
 
     public static BigDecimal parseDecimal(String value) {
         return isEmpty(value) ? null : new BigDecimal(value);
     }
     
     public static boolean isEmpty(String value) {
-        return value == null || value.trim().isEmpty();
+        return value == null || value.trim().isEmpty(); 
     }
 
     public static boolean isNotEmpty(String value) {
@@ -35,7 +36,7 @@ public final class Utils {
         return isEmpty(value) ? null : Long.parseLong(value);
     }
 
-    public static String convertListToString(List<?> itens) {
+    public static String convertListToString(List<?> itens) { 
         List<String> itensString = new ArrayList<>();
         for (Object registro : itens) {
             itensString.add(registro.toString());
