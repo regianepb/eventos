@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
-public final class Utils {
+public final class Utils { 
 
     private Utils() {
         throw new UnsupportedOperationException("Classe não pode ser instanciada por ser um utilitário.");
