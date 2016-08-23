@@ -1,7 +1,7 @@
 package br.com.eventos.servlet;
 
-import br.com.eventos.dao.PedidoDao;
-import br.com.eventos.model.Pedido;
+import br.com.eventos.dao.RecursosDao;
+import br.com.eventos.model.Recursos;
 import br.com.eventos.util.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("pedidos")
-public class PedidoServlet extends HttpServlet {
+@WebServlet("recursos")
+public class RecursosServlet extends HttpServlet {
 
-    private PedidoDao dao = new PedidoDao();
-    
+    private RecursosDao dao = new RecursosDao();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
@@ -26,15 +26,15 @@ public class PedidoServlet extends HttpServlet {
         try (PrintWriter writer = resp.getWriter()) {
             if (Utils.isNotEmpty(req.getParameter("id"))) {
                 // ler apenas um registro
-                Pedido ped = dao.buscar(Utils.parseLong(req.getParameter("id")));
-                writer.append(ped.toString());
+                Recursos r = dao.buscar(Utils.parseLong(req.getParameter("id")));
+                writer.append(r.toString());
             } else {
                 // ler todos
-                List<Pedido> pedidos = dao.listarTodos();
-                writer.append(Utils.convertListToString(pedidos));
+                List<Recursos> recursos = dao.listarTodos(req.getParameter("filter"));
+                writer.append(Utils.convertListToString(recursos));
             }
         } catch (Exception ex) {
-            Logger.getLogger(PedidoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendError(500, ex.getMessage());
         }
     }
@@ -44,16 +44,16 @@ public class PedidoServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
         try (PrintWriter writer = resp.getWriter()) {
-            Pedido ped = new Pedido();
-            ped.parse(Utils.getParameterMap(req));
+            Recursos r = new Recursos();
+            r.parse(Utils.getParameterMap(req));
             if (Utils.isNotEmpty(req.getParameter("id"))) {
-                ped = dao.atualizar(ped);
+                r = dao.atualizar(r);
             } else {
-                ped = dao.inserir(ped);
+                r = dao.inserir(r);
             }
-            writer.append(ped.toString());
+            writer.append(r.toString());
         } catch (Exception ex) {
-            Logger.getLogger(PedidoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendError(500, ex.getMessage());
         }
     }
@@ -63,10 +63,12 @@ public class PedidoServlet extends HttpServlet {
         if (Utils.isNotEmpty(req.getParameter("id"))) {
             try {
                 dao.excluir(Utils.parseLong(req.getParameter("id")));
+                resp.getWriter().append("#" + req.getParameter("id") + " exclu&iacute;do com sucesso!!!");
             } catch (Exception ex) {
-                Logger.getLogger(PedidoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
                 resp.sendError(500, ex.getMessage());
             }
         }
     }
+
 }

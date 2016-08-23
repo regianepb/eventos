@@ -1,7 +1,7 @@
 package br.com.eventos.servlet;
 
-import br.com.eventos.dao.ClienteDao;
-import br.com.eventos.model.Cliente;
+import br.com.eventos.dao.EventosDespesasDao;
+import br.com.eventos.model.EventosDespesas;
 import br.com.eventos.util.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("clientes")
-public class ClienteServlet extends HttpServlet {
+@WebServlet("eventos_despesas")
+public class EventosDespesasServlet extends HttpServlet {
 
-    private ClienteDao dao = new ClienteDao();
+    private EventosDespesasDao dao = new EventosDespesasDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,15 +26,15 @@ public class ClienteServlet extends HttpServlet {
         try (PrintWriter writer = resp.getWriter()) {
             if (Utils.isNotEmpty(req.getParameter("id"))) {
                 // ler apenas um registro
-                Cliente cli = dao.buscar(Utils.parseLong(req.getParameter("id")));
-                writer.append(cli.toString());
+                EventosDespesas e = dao.buscar(Utils.parseLong(req.getParameter("id")));
+                writer.append(e.toString());
             } else {
                 // ler todos
-                List<Cliente> clientes = dao.listarTodos(req.getParameter("filter"));
-                writer.append(Utils.convertListToString(clientes));
+                List<EventosDespesas> eventosDespesas = dao.listarTodos(req.getParameter("filter"));
+                writer.append(Utils.convertListToString(eventosDespesas));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventosDespesasServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendError(500, ex.getMessage());
         }
     }
@@ -44,16 +44,16 @@ public class ClienteServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
         try (PrintWriter writer = resp.getWriter()) {
-            Cliente cli = new Cliente();
-            cli.parse(Utils.getParameterMap(req));
+            EventosDespesas e = new EventosDespesas();
+            e.parse(Utils.getParameterMap(req));
             if (Utils.isNotEmpty(req.getParameter("id"))) {
-                cli = dao.atualizar(cli);
+                e = dao.atualizar(e);
             } else {
-                cli = dao.inserir(cli);
+                e = dao.inserir(e);
             }
-            writer.append(cli.toString());
+            writer.append(e.toString());
         } catch (Exception ex) {
-            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EventosDespesasServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendError(500, ex.getMessage());
         }
     }
@@ -65,7 +65,7 @@ public class ClienteServlet extends HttpServlet {
                 dao.excluir(Utils.parseLong(req.getParameter("id")));
                 resp.getWriter().append("#" + req.getParameter("id") + " exclu&iacute;do com sucesso!!!");
             } catch (Exception ex) {
-                Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EventosDespesasServlet.class.getName()).log(Level.SEVERE, null, ex);
                 resp.sendError(500, ex.getMessage());
             }
         }

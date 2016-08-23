@@ -1,7 +1,7 @@
 package br.com.eventos.servlet;
 
-import br.com.eventos.dao.ProdutoDao;
-import br.com.eventos.model.Produto;
+import br.com.eventos.dao.ClassifDespesasDao;
+import br.com.eventos.model.ClassifDespesas;
 import br.com.eventos.util.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("produtos")
-public class ProdutoServlet extends HttpServlet {
+@WebServlet("classifdespesas")
+public class ClassifDespesasServlet extends HttpServlet {
 
-    private ProdutoDao dao = new ProdutoDao();
+    private ClassifDespesasDao dao = new ClassifDespesasDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,16 +26,15 @@ public class ProdutoServlet extends HttpServlet {
         try (PrintWriter writer = resp.getWriter()) {
             if (Utils.isNotEmpty(req.getParameter("id"))) {
                 // ler apenas um registro
-                Produto pro = dao.buscar(Utils.parseLong(req.getParameter("id")));
-                writer.append(pro.toString());
+                ClassifDespesas c = dao.buscar(Utils.parseLong(req.getParameter("id")));
+                writer.append(c.toString());
             } else {
                 // ler todos
-                List<Produto> produtos = dao.listarTodos(req.getParameter("filter"));
-                writer.append(Utils.convertListToString(produtos));
+                List<ClassifDespesas> classifdespesas = dao.listarTodos(req.getParameter("filter"));
+                writer.append(Utils.convertListToString(classifdespesas));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
-            resp.resetBuffer();
+            Logger.getLogger(ClassifDespesasServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendError(500, ex.getMessage());
         }
     }
@@ -45,17 +44,16 @@ public class ProdutoServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
         try (PrintWriter writer = resp.getWriter()) {
-            Produto pro = new Produto();
-            pro.parse(Utils.getParameterMap(req));
+            ClassifDespesas c = new ClassifDespesas();
+            c.parse(Utils.getParameterMap(req));
             if (Utils.isNotEmpty(req.getParameter("id"))) {
-                pro = dao.atualizar(pro);
+                c = dao.atualizar(c);
             } else {
-                pro = dao.inserir(pro);
+                c = dao.inserir(c);
             }
-            writer.append(pro.toString());
+            writer.append(c.toString());
         } catch (Exception ex) {
-            Logger.getLogger(ProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
-            resp.reset();
+            Logger.getLogger(ClassifDespesasServlet.class.getName()).log(Level.SEVERE, null, ex);
             resp.sendError(500, ex.getMessage());
         }
     }
@@ -65,11 +63,12 @@ public class ProdutoServlet extends HttpServlet {
         if (Utils.isNotEmpty(req.getParameter("id"))) {
             try {
                 dao.excluir(Utils.parseLong(req.getParameter("id")));
+                resp.getWriter().append("#" + req.getParameter("id") + " exclu&iacute;do com sucesso!!!");
             } catch (Exception ex) {
-                Logger.getLogger(ProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
-                resp.reset();
+                Logger.getLogger(ClassifDespesasServlet.class.getName()).log(Level.SEVERE, null, ex);
                 resp.sendError(500, ex.getMessage());
             }
         }
     }
+
 }
