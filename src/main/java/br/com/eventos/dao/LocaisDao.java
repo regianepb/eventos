@@ -91,7 +91,7 @@ public class LocaisDao {
     }
 
     private Long buscarProximoId() throws SQLException {
-        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_local')");
+        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('SEQ_LOCAIS')");
         rs.next();
         return rs.getLong(1);
     }

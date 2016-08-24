@@ -102,7 +102,7 @@ public class DespesasDao {
     }
 
     private Long buscarProximoId() throws SQLException {
-        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_despesas')");
+        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('SEQ_DESPESAS')");
         rs.next();
         return rs.getLong(1);
     }

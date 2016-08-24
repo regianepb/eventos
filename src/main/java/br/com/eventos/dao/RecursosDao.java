@@ -91,7 +91,7 @@ public class RecursosDao {
     }
 
     private Long buscarProximoId() throws SQLException {
-        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_recurso')");
+        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('SEQ_RECURSOS')");
         rs.next();
         return rs.getLong(1);
     }

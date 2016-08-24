@@ -91,7 +91,7 @@ public class ClassifDespesasDao {
     }
 
     private Long buscarProximoId() throws SQLException {
-        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_classifDesps')");
+        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('SEQ_CLASSIF_DESPESAS')");
         rs.next();
         return rs.getLong(1);
     }

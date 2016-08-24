@@ -114,7 +114,7 @@ public class EventosDespesasDao {
     }
 
     private Long buscarProximoId() throws SQLException {
-        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('seq_evedesp')");
+        ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('SEQ_EVENTOS_DESPESAS')");
         rs.next();
         return rs.getLong(1);
     }

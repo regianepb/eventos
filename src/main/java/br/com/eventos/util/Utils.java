@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import jdk.nashorn.internal.objects.NativeArray;
 
 public final class Utils { 
             
@@ -49,7 +50,7 @@ public final class Utils {
         for (String key : req.getParameterMap().keySet()) {
             dados.put(key, req.getParameter(key));
         }
-        return dados;
+        return dados;        
     }
 
     public static boolean isNull(Object... values) {
