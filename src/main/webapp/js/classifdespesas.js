@@ -10,7 +10,7 @@ $(function () {
             });
         });
     });
-            
+
     $('#btnBuscar').click(function () {
         carregar();
     });
@@ -42,13 +42,15 @@ function excluir(id) {
         type: "DELETE"
     }).success(function () {
         carregar();
-    }
-    );
+    }).error(function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("Não é possível excluir esse registro pois ele possui dependências.");         
+    });
 }
 
+
 function limparForm() {
-        $("input[name=id]").val("");
-        $("input[name=descricao]").val("");
+    $("input[name=id]").val("");
+    $("input[name=descricao]").val("");
 }
 
 function searchKeyPress(e) {
