@@ -46,9 +46,9 @@ public class ClassifDespesasServlet extends HttpServlet {
         try (PrintWriter writer = resp.getWriter()) {
             ClassifDespesas c = new ClassifDespesas();
             c.parse(Utils.getParameterMap(req));
-            if (Utils.isNotEmpty(req.getParameter("id"))) {
+            if (Utils.isNotEmpty(req.getParameter("id"))) {                
                 c = dao.atualizar(c);
-            } else {
+            } else {                
                 c = dao.inserir(c);
             }
             writer.append(c.toString());

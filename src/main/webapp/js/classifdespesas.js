@@ -33,7 +33,7 @@ function carregar() {
 function editar(id) {
     $.getJSON("classifdespesas?id=" + id).success(function (data) {
         $("input[name=id]").val(data.id);
-        $("input[descricao=descricao]").val(data.descricao);
+        $("input[name=descricao]").val(data.descricao);
     });
 }
 

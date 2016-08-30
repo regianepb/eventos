@@ -11,7 +11,7 @@ import java.util.List;
 public class ClassifDespesasDao {
 
     public ClassifDespesas inserir(ClassifDespesas classifDesp) throws Exception {
-        try {
+        try {            
             classifDesp.setId(buscarProximoId());
 
             PreparedStatement stm = Connection.get().getParamStm("INSERT INTO CLASSIF_DESPESAS (ID, DESCRICAO) VALUES(?, ?)");

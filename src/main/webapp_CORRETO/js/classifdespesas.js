@@ -3,46 +3,42 @@ $(function () {
     carregar();
 
     $('#btnEnviar').click(function () {
-        $.post('bancos', $('form').serialize(), function () {
+        $.post('classifdespesas', $('form').serialize(), function () {
             carregar();
             $('form').each(function () {
                 this.reset();
             });
         });
     });
-    
-    $("#bancoForm input[name=codigo_banco]").mask("00000");
-    
+            
     $('#btnBuscar').click(function () {
         carregar();
     });
 });
 
 function carregar() {
-    $.getJSON('bancos', $('form[role=search]').serialize()).success(function (registros) {
+    $.getJSON('classifdespesas', $('form[role=search]').serialize()).success(function (registros) {
         window.templateTr = window.templateTr || $('#divTable table tbody').html();
         var trHtml = window.templateTr;
         var respHtml = "";
         registros.forEach(function (item) {
             respHtml += trHtml
                     .replace(/\{\{id\}\}/g, item.id)
-                    .replace(/\{\{codigo_banco\}\}/g, item.codigo_banco)
-                    .replace(/\{\{nome\}\}/g, item.nome);
+                    .replace(/\{\{descricao\}\}/g, item.descricao);
         });
         $('#divTable table tbody').html(respHtml);
     });
 }
 
 function editar(id) {
-    $.getJSON("bancos?id=" + id).success(function (data) {
+    $.getJSON("classifdespesas?id=" + id).success(function (data) {
         $("input[name=id]").val(data.id);
-        $("input[name=codigo_banco]").val(data.codigo_banco);
-        $("input[name=nome]").val(data.nome);
+        $("input[name=descricao]").val(data.descricao);
     });
 }
 
 function excluir(id) {
-    $.ajax("bancos?id=" + id, {
+    $.ajax("classifdespesas?id=" + id, {
         type: "DELETE"
     }).success(function () {
         carregar();
@@ -52,8 +48,7 @@ function excluir(id) {
 
 function limparForm() {
         $("input[name=id]").val("");
-        $("input[name=codigo_banco]").val("");
-        $("input[name=nome]").val("");
+        $("input[name=descricao]").val("");
 }
 
 function searchKeyPress(e) {
