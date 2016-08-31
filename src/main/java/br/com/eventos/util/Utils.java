@@ -40,7 +40,7 @@ public final class Utils {
         List<String> itensString = new ArrayList<>();
         for (Object registro : itens) {
             itensString.add(registro.toString());
-        }
+        }        
         return itensString.toString();
     }
 

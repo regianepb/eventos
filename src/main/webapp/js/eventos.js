@@ -3,7 +3,7 @@ $(function () {
     carregar();
 
     $('#btnEnviar').click(function () {
-        $.post('locais', $('form').serialize(), function () {
+        $.post('eventos', $('form').serialize(), function () {
             carregar();
             $('form').each(function () {
                 this.reset();
@@ -17,7 +17,7 @@ $(function () {
 });
 
 function carregar() {
-    $.getJSON('locais', $('form[role=search]').serialize()).success(function (registros) {
+    $.getJSON('eventos', $('form[role=search]').serialize()).success(function (registros) {
         window.templateTr = window.templateTr || $('#divTable table tbody').html();
         var trHtml = window.templateTr;
         var respHtml = "";
@@ -31,14 +31,14 @@ function carregar() {
 }
 
 function editar(id) {
-    $.getJSON("locais?id=" + id).success(function (data) {
+    $.getJSON("eventos?id=" + id).success(function (data) {
         $("input[name=id]").val(data.id);
         $("input[name=descricao]").val(data.descricao);
     });
 }
 
 function excluir(id) {
-    $.ajax("locais?id=" + id, {
+    $.ajax("eventos?id=" + id, {
         type: "DELETE"
     }).success(function () {
         carregar();

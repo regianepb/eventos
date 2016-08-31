@@ -71,14 +71,14 @@ public class DespesasDao {
             if (Utils.isNotEmpty(nome)) {
                 stm = Connection.get().getParamStm("SELECT * FROM DESPESAS WHERE UPPER(DESCRICAO) LIKE ? ORDER BY DESCRICAO");
                 stm.setString(1, '%' + nome.toUpperCase().replaceAll(" ", "%") + '%');
-            } else {
+            } else {                
                 stm = Connection.get().getParamStm("SELECT * FROM DESPESAS ORDER BY DESCRICAO");
             }
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
                 despesas.add(lerRegistro(rs));
-            }
+            }            
             return despesas;
         } catch (SQLException ex) {
             throw new Exception("Erro ao listar os registro", ex);

@@ -42,23 +42,12 @@ function excluir(id) {
         type: "DELETE"
     }).success(function () {
         carregar();
-    }).error(function (XMLHttpRequest, textStatus, errorThrown) {
+    }).error(function () {
         alert("Não é possível excluir esse registro pois ele possui dependências.");         
     });
 }
 
-
 function limparForm() {
     $("input[name=id]").val("");
     $("input[name=descricao]").val("");
-}
-
-function searchKeyPress(e) {
-    e = e || window.event;
-    if (e.keyCode == 13)
-    {
-        carregar();
-        return false;
-    }
-    return true;
 }

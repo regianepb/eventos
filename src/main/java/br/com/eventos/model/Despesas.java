@@ -42,9 +42,10 @@ public class Despesas implements Parseable {
         
     @Override
     public String toString() {
-        return String.format("{\"id\":\"%s\", \"descricao\":\"%s\", \"classif_despesas_id\":\"%s\"}", 
-                id, descricao, classif_despesas_id);
+        return String.format("{\"id\":\"%s\", \"descricao\":\"%s\", \"classif_despesas_id\":%s}", 
+                                id, descricao, classif_despesas_id);
     }
+    
 
     @Override
     public void parse(Map<String, String> values) {

@@ -29,8 +29,8 @@ public class DespesasServlet extends HttpServlet {
                 Despesas d = dao.buscar(Utils.parseLong(req.getParameter("id")));
                 writer.append(d.toString());
             } else {
-                // ler todos
-                List<Despesas> despesas = dao.listarTodos(req.getParameter("filter"));
+                // ler todos                
+                List<Despesas> despesas = dao.listarTodos(req.getParameter("filter"));            
                 writer.append(Utils.convertListToString(despesas));
             }
         } catch (Exception ex) {
