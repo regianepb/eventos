@@ -85,10 +85,10 @@ public class EventosDao {
                 stm = Connection.get().getParamStm("SELECT * FROM EVENTOS ORDER BY DESCRICAO");
             }
             ResultSet rs = stm.executeQuery();
-
             while (rs.next()) {
                 eventos.add(lerRegistro(rs));
             }
+            
             return eventos;
         } catch (SQLException ex) {
             throw new Exception("Erro ao listar os registro", ex);

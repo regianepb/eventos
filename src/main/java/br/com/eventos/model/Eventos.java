@@ -61,7 +61,7 @@ public class Eventos implements Parseable {
               
     @Override
     public String toString() {
-        return String.format("{\"id\":\"%s\", \"descricao\":\"%s\", \"data_hora\":\"%s\", \"qtd_pessoas\":\"%s\", \"locais_id\":\"%s\"}", 
+        return String.format("{\"id\":\"%s\", \"descricao\":\"%s\", \"data_hora\":\"%s\", \"qtd_pessoas\":\"%s\", \"locais_id\":%s}", 
                 id, descricao, data_hora, qtd_pessoas, locais_id);
     }
 
@@ -74,4 +74,3 @@ public class Eventos implements Parseable {
         locais_id = Utils.isEmpty(values.get("locais_id")) ? null : new Locais(Utils.parseLong(values.get("locais_id")));                       
     }
 }
-
