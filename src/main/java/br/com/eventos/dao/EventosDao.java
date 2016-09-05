@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class EventosDao {
             PreparedStatement stm = Connection.get().getParamStm("INSERT INTO EVENTOS (ID, DESCRICAO, DATA_HORA, QTD_PESSOAS, LOCAIS_ID) VALUES(?, ?, ?, ?, ?)");
             stm.setLong(1, evento.getId());
             stm.setString(2, evento.getDescricao());
-            stm.setTimestamp(3, Timestamp.valueOf(evento.getData_hora() == null ? LocalDateTime.now() : evento.getData_hora()));
+            stm.setTimestamp(3, Timestamp.valueOf(evento.getData() == null ? LocalDate.now() : evento.getData()));
             stm.setLong(4, evento.getQtd_pessoas());
             if (Utils.isNotNull(evento.getLocais_id(), evento.getLocais_id().getId())) {
                 stm.setLong(5, evento.getLocais_id().getId());
