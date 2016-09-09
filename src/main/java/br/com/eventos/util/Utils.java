@@ -2,8 +2,8 @@ package br.com.eventos.util;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +15,10 @@ public final class Utils {
     private Utils() {        
         throw new UnsupportedOperationException("Classe não pode ser instanciada por ser um utilitário.");
     }
-
-    public static LocalDate parseDate(String value, String pattern) {
-        return isEmpty(value) ? null : LocalDate.parse(value, DateTimeFormatter.ofPattern(pattern));        
-    }    
     
+    public static LocalDate parseDate(String value, String pattern) {
+        return isEmpty(value) ? null : LocalDate.parse(value, DateTimeFormatter.ofPattern(pattern));
+    }
     
     public static LocalTime parseTime(String value, String pattern) {
         return isEmpty(value) ? null : LocalTime.parse(value, DateTimeFormatter.ofPattern(pattern));        

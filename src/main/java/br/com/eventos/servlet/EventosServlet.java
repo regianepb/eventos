@@ -49,6 +49,8 @@ public class EventosServlet extends HttpServlet {
             if (Utils.isNotEmpty(req.getParameter("id"))) {
                 e = dao.atualizar(e);
             } else {
+                System.out.println("inserir");
+                System.out.println(e);
                 e = dao.inserir(e);
             }
             writer.append(e.toString());

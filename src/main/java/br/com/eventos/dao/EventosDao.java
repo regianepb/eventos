@@ -2,25 +2,32 @@ package br.com.eventos.dao;
 
 import br.com.eventos.model.Eventos;
 import br.com.eventos.util.Utils;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class EventosDao {
 
     public Eventos inserir(Eventos evento) throws Exception {
+        
         try {
             evento.setId(buscarProximoId());
-
-            PreparedStatement stm = Connection.get().getParamStm("INSERT INTO EVENTOS (ID, DESCRICAO, DATA_HORA, QTD_PESSOAS, LOCAIS_ID) VALUES(?, ?, ?, ?, ?)");
+                
+            PreparedStatement stm = Connection.get().getParamStm("INSERT INTO EVENTOS (ID, DESCRICAO, DATA, HORA, QTD_PESSOAS, LOCAIS_ID) VALUES(?, ?, ?, '20:00', ?, ?)");
             stm.setLong(1, evento.getId());
-            stm.setString(2, evento.getDescricao());
-            stm.setTimestamp(3, Timestamp.valueOf(evento.getData() == null ? LocalDate.now() : evento.getData()));
+            stm.setString(2, evento.getDescricao());      
+            stm.setDate(3, Date.valueOf(evento.getData()));
+//            stm.setTime(4, Time.valueOf(evento.getHora()));   
+            /*stm.setDate(3, Date.valueOf(evento.getData() == null ? LocalDate.now() : evento.getData()));
+            stm.setTime(4, Time.valueOf(evento.getHora() == null ? LocalTime.now() : evento.getHora()));*/
             stm.setLong(4, evento.getQtd_pessoas());
             if (Utils.isNotNull(evento.getLocais_id(), evento.getLocais_id().getId())) {
                 stm.setLong(5, evento.getLocais_id().getId());
@@ -37,18 +44,26 @@ public class EventosDao {
 
     public Eventos atualizar(Eventos evento) throws Exception {
         try {
-            PreparedStatement stm = Connection.get().getParamStm("UPDATE EVENTOS SET DESCRICAO = ?, DATA_HORA = ?, QTD_PESSOAS = ?, LOCAIS_ID = ? WHERE ID = ?");
+            PreparedStatement stm = Connection.get().getParamStm("UPDATE EVENTOS SET DESCRICAO = ?, DATA = ?, HORA = ?, QTD_PESSOAS = ?, LOCAIS_ID = ? WHERE ID = ?");
             stm.setString(1, evento.getDescricao());
-            if (Utils.isNotNull(evento.getData_hora())) {
-                stm.setTimestamp(2, Timestamp.valueOf(evento.getData_hora()));
+            stm.setString(2, evento.getData());
+            stm.setString(3, evento.getHora());
+            /*
+            if (Utils.isNotNull(evento.getData())) {
+                stm.setDate(2, Date.valueOf(evento.getData()));
             } else {
-                stm.setNull(2, Types.TIMESTAMP);
-            }            
-            stm.setLong(3, evento.getQtd_pessoas());
+                stm.setNull(2, Types.DATE);
+            } 
+            if (Utils.isNotNull(evento.getHora())) {
+                stm.setTime(3, Time.valueOf(evento.getHora()));
+            } else {
+                stm.setNull(3, Types.TIME);
+            } */
+            stm.setLong(4, evento.getQtd_pessoas());
             if (evento.getLocais_id()!= null && evento.getLocais_id().getId() != null) {
-                stm.setLong(4, evento.getLocais_id().getId());
+                stm.setLong(5, evento.getLocais_id().getId());
             } else {
-                stm.setNull(4, Types.INTEGER);
+                stm.setNull(5, Types.INTEGER);
             }
             stm.setLong(5, evento.getId());
             stm.execute();
@@ -124,14 +139,33 @@ public class EventosDao {
 
             e.setId(rs.getLong("id"));
             e.setDescricao(rs.getString("descricao"));
-            e.setData_hora(rs.getTimestamp("data_hora") == null ? null : rs.getTimestamp("data_hora").toLocalDateTime());
-            e.setId(rs.getLong("qtd_pessoas"));
+            e.setData(rs.getString("data"));
+            e.setHora(rs.getString("hora"));
+            /*e.setData(rs.getDate("data") == null ? null : rs.getDate("data").toLocalDate());
+            e.setHora(rs.getTime("hora") == null ? null : rs.getTime("hora").toLocalTime());*/
+            e.setQtd_pessoas(rs.getLong("qtd_pessoas"));
             e.setLocais_id(localDao.buscar(rs.getLong("locais_id")));
 
             return e;
         } catch (Exception ex) {
             throw new SQLException(ex);
         }
+    }
+
+    private Date Date(String data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Time Time(String hora) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Date LocalDate(String data) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private Time LocalTime(String hora) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

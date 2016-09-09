@@ -20,7 +20,7 @@ $(function () {
 
 function formatDate(value) {
     if (value)
-        return new Date(value).toLocaleString('pt-BR');
+        return new Date(value).toLocaleDateString('pt-BR');
     return "";
 }
 
@@ -33,7 +33,8 @@ function carregar() {
             respHtml += trHtml
                     .replace(/\{\{id\}\}/g, item.id)
                     .replace(/\{\{descricao\}\}/g, item.descricao)
-                    .replace(/\{\{data_hora\}\}/g, formatDate(item.data_hora)) 
+                    .replace(/\{\{data\}\}/g, formatDate(item.data)) 
+                    .replace(/\{\{hora\}\}/g, item.hora) 
                     .replace(/\{\{qtd_pessoas\}\}/g, item.qtd_pessoas)
                     .replace(/\{\{locais_id\}\}/g, item.locais_id.descricao);
         });
@@ -53,11 +54,12 @@ function carregarLocais(executa) {
     });
 }
 
-function editar(id) {
+function editar(id) {   
     $.getJSON("eventos?id=" + id).success(function (data) {
         $("input[name=id]").val(data.id);
         $("input[name=descricao]").val(data.descricao);
-        $("input[name=data_hora]").val(formatDate(data.data_hora));
+        $("input[name=data]").val(data.data);
+        $("input[name=hora]").val(data.hora);
         $("input[name=qtd_pessoas]").val(data.qtd_pessoas);
         $("select[name=locais_id]").val(data.locais_id.id);
     });
@@ -76,7 +78,8 @@ function excluir(id) {
 function limparForm() {
     $("input[name=id]").val("");
     $("input[name=descricao]").val("");    
-    $("input[name=data_hora]").val("");
+    $("input[name=data]").val("");
+    $("input[name=hora]").val("");
     $("input[name=qtd_pessoas]").val("");
     $("select[name=locais_id]").val("");
     carregarLocais();

@@ -84,6 +84,9 @@
                             Data
                         </th>
                         <th>
+                            Hora
+                        </th>
+                        <th>
                             Local
                         </th>
                         <th style="width: 10px;"></th>                                                              
@@ -91,7 +94,8 @@
                         <tbody>
                             <tr>
                                 <td>{{descricao}}</td>
-                                <td>{{data_hora}}</td>
+                                <td>{{data}}</td>
+                                <td>{{hora}}</td>
                                 <td>{{locais_id}}</td>
                                 <td>         
                                     <div class="btn-group">
@@ -110,6 +114,10 @@
                 </div>
             </div>
         </div>	
+
+
+
+
         <div class="modal fade" id="adicionar">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -118,41 +126,118 @@
                         <h4 class="modal-title">Adicionando Evento</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="eventosForm" class="form-horizontal">
-                            <input style="visibility:hidden;" name="id" />
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Descrição</label>  
-                                <div class="col-md-5">
-                                    <input name="descricao" type="text" placeholder="Descrição do evento" class="form-control input-md">
+
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#eventos" aria-controls="home" role="tab" data-toggle="tab">Eventos</a></li>
+                                <li role="presentation"><a href="#recursos" aria-controls="profile" role="tab" data-toggle="tab">Recursos</a></li>
+                                <li role="presentation"><a href="#despesas" aria-controls="profile" role="tab" data-toggle="tab">Despesas</a></li>
+                                <li role="presentation"><a href="#resumo" aria-controls="profile" role="tab" data-toggle="tab">Resumo</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="eventos"> 
+                                    <input style="visibility:hidden;" name="id" />
+                                    <div class="form-group">
+                                        <form id="eventosForm" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Descrição</label>  
+                                                <div class="col-xs-5">
+                                                    <input name="descricao" type="text" class="form-control input-md" placeholder="Descrição"  required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Data</label>                                                      
+                                                <div class="col-xs-5">
+                                                    <input name="data" type="Date" class="form-control" placeholder="Data do evento">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Horário</label>                                                      
+                                                <div class="col-xs-5">
+                                                    <input name="hora" type="time" class="form-control" placeholder="Horário do evento">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Quantidade público</label>                                                      
+                                                <div class="col-xs-5">
+                                                    <input name="qtd_pessoas" type="text" class="form-control" placeholder="Quantidade público">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Local</label>                                                      
+                                                <div class="col-md-5">
+                                                    <select name="locais_id" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </form> 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Data e horário</label>  
-                                <div class="col-md-5">
-                                    <input name="data_hora" type="text" placeholder="Data e horário" class="form-control input-md" style="text-align: center;">
+
+
+                                <div role="tabpanel" class="tab-pane" id="recursos"> 
+                                    <input style="visibility:hidden;" name="id" />
+                                    <div class="form-group">
+                                        <form id="recursosForm" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Descrição2</label>  
+                                                <div class="col-xs-5">
+                                                    <input name="descricao" type="text" class="form-control input-md" placeholder="Descrição"  required>
+                                                </div>
+                                            </div>                                            
+                                        </form> 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Quantidade público</label>  
-                                <div class="col-md-5">
-                                    <input name="qtd_pessoas" type="text" placeholder="Quantidade público" class="form-control input-md" style="text-align: right;">
+
+
+                                <div role="tabpanel" class="tab-pane" id="despesas"> 
+                                    <input style="visibility:hidden;" name="id" />
+                                    <div class="form-group">
+                                        <form id="despesasForm" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Descrição3</label>  
+                                                <div class="col-xs-5">
+                                                    <input name="descricao" type="text" class="form-control input-md" placeholder="Descrição"  required>
+                                                </div>
+                                            </div>                                            
+                                        </form> 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Local</label>  
-                                <div class="col-md-5">
-                                    <select name="locais_id" class="form-control"></select>
+
+
+                                <div role="tabpanel" class="tab-pane" id="resumo"> 
+                                    <input style="visibility:hidden;" name="id" />
+                                    <div class="form-group">
+                                        <form id="resumoForm" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Descrição4</label>  
+                                                <div class="col-xs-5">
+                                                    <input name="descricao" type="text" class="form-control input-md" placeholder="Descrição"  required>
+                                                </div>
+                                            </div>                                            
+                                        </form> 
+                                    </div>
                                 </div>
+                                
+                                
+                                
+                                
+                                
                             </div>
-                            <div class="modal-footer">
-                                <button onclick="limparForm()" type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnEnviar">Gravar</button>
-                            </div>	
-                        </form>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" on-click="limparForm()">Fechar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnEnviar">Gravar</button>
                     </div>
                 </div>
             </div>
         </div>
+
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="dist/js/bootstrap.min.js"></script>
