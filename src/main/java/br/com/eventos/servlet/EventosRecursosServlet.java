@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("eventos_despesas")
+@WebServlet("eventos_recursos")
 public class EventosRecursosServlet extends HttpServlet {
 
     private EventosRecursosDao dao = new EventosRecursosDao();

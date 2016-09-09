@@ -2,6 +2,7 @@ $(function () {
 
     carregar();
     carregarLocais();
+    carregarEventosRecursos();
 
     $('#btnEnviar').click(function () {
         $.post('eventos', $('form').serialize(), function () {
@@ -15,6 +16,7 @@ $(function () {
     $('#btnBuscar').click(function () {
         carregar();
         carregarLocais();
+        carregarEventosRecursos();
     });
 });
 
@@ -51,6 +53,23 @@ function carregarLocais(executa) {
         $('#eventosForm select[name=locais_id]').html(options);
         if (executa)
             executa();
+    });
+}
+
+function carregarEventosRecursos() {
+    $.getJSON('eventos_recursos', $('form[role=search]').serialize()).success(function (registros) {   
+        window.templateTr = window.templateTr || $('#divTableRec table tbody').html();
+        var trHtml = window.templateTr;
+        var respHtml = "";
+        registros.forEach(function (item) {
+            respHtml += trHtml
+                    .replace(/\{\{id\}\}/g, item.id)
+                    .replace(/\{\{eventos_id\}\}/g, item.eventos_id)
+                    .replace(/\{\{recursos_id\}\}/g, item.recursos_id) 
+                    .replace(/\{\{qtd\}\}/g, item.qtd) 
+                    .replace(/\{\{valor\}\}/g, item.valor);
+        });
+        $('#divTableRec table tbody').html(respHtml);
     });
 }
 
