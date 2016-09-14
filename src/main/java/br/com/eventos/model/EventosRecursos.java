@@ -57,13 +57,11 @@ public class EventosRecursos implements Parseable {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
-
-       
     
               
     @Override
     public String toString() {
-        return String.format("{\"id\":\"%s\", \"eventos_id\":\"%s\", \"recursos_id\":\"%s\", \"qtd\":\"%s\", \"valor\":\"%s\"}", 
+        return String.format("{\"id\":\"%s\", \"eventos_id\":%s, \"recursos_id\":%s, \"qtd\":\"%s\", \"valor\":\"%s\"}", 
                 id, eventos_id, recursos_id, qtd, valor);
     }
 
@@ -75,5 +73,7 @@ public class EventosRecursos implements Parseable {
         qtd = Utils.parseDecimal(values.get("qtd"));
         valor = Utils.parseDecimal(values.get("valor"));
     }
+    
+    
 }
 

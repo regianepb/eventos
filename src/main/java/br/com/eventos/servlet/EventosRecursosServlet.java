@@ -23,40 +23,52 @@ public class EventosRecursosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
-        try (PrintWriter writer = resp.getWriter()) {
-            if (Utils.isNotEmpty(req.getParameter("id"))) {
-                // ler apenas um registro
-                EventosRecursos e = dao.buscar(Utils.parseLong(req.getParameter("id")));
-                writer.append(e.toString());
-            } else {
-                // ler todos
-                List<EventosRecursos> eventosRecursos = dao.listarTodos(req.getParameter("filter"));
-                writer.append(Utils.convertListToString(eventosRecursos));
+        if (Utils.isNotEmpty(req.getParameter("eventos_id")) || Utils.isNotEmpty(req.getParameter("id"))) {
+            try (PrintWriter writer = resp.getWriter()) {
+                if (Utils.isNotEmpty(req.getParameter("id"))) {
+                    // ler apenas um registro
+                    EventosRecursos eventoRec = dao.buscar(Utils.parseLong(req.getParameter("id")));
+                    writer.append(eventoRec.toString());
+                } else {
+                    // ler todos
+                    List<EventosRecursos> eventosRec = dao.listarTodos(Utils.parseLong(req.getParameter("eventos_id")));
+                    writer.append(Utils.convertListToString(eventosRec));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(EventosRecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+                resp.sendError(500, ex.getMessage());
             }
-        } catch (Exception ex) {
-            Logger.getLogger(EventosRecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
-            resp.sendError(500, ex.getMessage());
+        } else {
+            resp.sendError(400, "Código do evento é obrigatório!");
         }
+        
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
-        try (PrintWriter writer = resp.getWriter()) {
-            EventosRecursos e = new EventosRecursos();
-            e.parse(Utils.getParameterMap(req));
-            if (Utils.isNotEmpty(req.getParameter("id"))) {
-                e = dao.atualizar(e);
-            } else {
-                e = dao.inserir(e);
+        if (Utils.isNotEmpty(req.getParameter("eventos_id"))) {
+            try (PrintWriter writer = resp.getWriter()) {
+                EventosRecursos eventoRec = new EventosRecursos();
+                eventoRec.parse(Utils.getParameterMap(req));
+                if (Utils.isNotEmpty(req.getParameter("id"))) {
+                    eventoRec = dao.atualizar(eventoRec);
+                } else {
+                    eventoRec = dao.inserir(Utils.parseLong(req.getParameter("eventos_id")), eventoRec);
+                }
+                writer.append(eventoRec.toString());
+            } catch (Exception ex) {
+                Logger.getLogger(EventosRecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+                resp.sendError(500, ex.getMessage());
             }
-            writer.append(e.toString());
-        } catch (Exception ex) {
-            Logger.getLogger(EventosRecursosServlet.class.getName()).log(Level.SEVERE, null, ex);
-            resp.sendError(500, ex.getMessage());
+        } else {
+            resp.sendError(400, "Código do evento é obrigatório!");
         }
     }
+    
+    
+    
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

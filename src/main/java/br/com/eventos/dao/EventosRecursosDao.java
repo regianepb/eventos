@@ -11,17 +11,13 @@ import java.util.List;
 
 public class EventosRecursosDao {
 
-    public EventosRecursos inserir(EventosRecursos everec) throws Exception {
+      public EventosRecursos inserir(Long idEvento, EventosRecursos everec) throws Exception {
         try {
             everec.setId(buscarProximoId());
 
             PreparedStatement stm = Connection.get().getParamStm("INSERT INTO EVENTOS_RECURSOS (ID, EVENTOS_ID, RECURSOS_ID, QTD, VALOR) VALUES(?, ?, ?, ?, ?)");
             stm.setLong(1, everec.getId());
-            if (Utils.isNotNull(everec.getEventos_id(), everec.getEventos_id().getId())) {
-                stm.setLong(2, everec.getEventos_id().getId());
-            } else {
-                stm.setNull(2, Types.INTEGER);
-            }
+            stm.setLong(2, idEvento);
             if (Utils.isNotNull(everec.getRecursos_id(), everec.getRecursos_id().getId())) {
                 stm.setLong(3, everec.getRecursos_id().getId());
             } else {
@@ -36,6 +32,7 @@ public class EventosRecursosDao {
             throw new Exception("Erro ao inserir o registro", ex);
         }
     }
+    
 
     public EventosRecursos atualizar(EventosRecursos everec) throws Exception {
         try {
@@ -75,25 +72,21 @@ public class EventosRecursosDao {
         }
     }
 
-    public List<EventosRecursos> listarTodos(String nome) throws Exception {
+    
+    public List<EventosRecursos> listarTodos(Long eventos_id) throws Exception {
         try {
-            List<EventosRecursos> everecs = new ArrayList<>();
+            List<EventosRecursos> itens = new ArrayList<>();
 
-            PreparedStatement stm;
-            if (Utils.isNotEmpty(nome)) {
-                stm = Connection.get().getParamStm("SELECT * FROM EVENTOS_RECURSOS WHERE EVENTOS_ID = ? ORDER BY EVENTOS_ID");
-                stm.setString(1, '%' + nome.toUpperCase().replaceAll(" ", "%") + '%');
-            } else {
-                stm = Connection.get().getParamStm("SELECT * FROM EVENTOS_RECURSOS ORDER BY EVENTOS_ID");
-            }
+            PreparedStatement stm = Connection.get().getParamStm("SELECT * FROM EVENTOS_RECURSOS WHERE EVENTOS_ID = ? ORDER BY ID");
+            stm.setLong(1, eventos_id);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                everecs.add(lerRegistro(rs));
+                itens.add(lerRegistro(rs));
             }
-            return everecs;
+            return itens;
         } catch (SQLException ex) {
-            throw new Exception("Erro ao listar os registro", ex);
+            throw new Exception("Erro ao listar os registros", ex);
         }
     }
 
@@ -112,6 +105,7 @@ public class EventosRecursosDao {
             }
         }
     }
+    
 
     private Long buscarProximoId() throws SQLException {
         ResultSet rs = Connection.get().getStm().executeQuery("SELECT NEXTVAL('SEQ_EVENTOS_RECURSOS')");
