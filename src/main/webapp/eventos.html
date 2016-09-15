@@ -138,10 +138,10 @@
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="eventos"> 
-                                    <input style="visibility:hidden;" name="id" />
+                                <div role="tabpanel" class="tab-pane active" id="eventos">                                     
                                     <div class="form-group">
                                         <form id="eventosForm" class="form-horizontal">
+                                            <input style="visibility:hidden;" name="id" />
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Descrição</label>  
                                                 <div class="col-xs-5">
@@ -287,6 +287,7 @@
                     <div class="modal-body">
                         <form id="EventosRecForm" class="form-horizontal">
                             <input style="visibility:hidden;" name="id" />                            
+                            <input style="visibility:hidden;" name="eventos_id" />                            
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">Recurso</label>  
                                 <div class="col-xs-5">
@@ -312,7 +313,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" on-click="limparFormEventosRec()">Fechar</button>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnEnviarRec">Gravar</button>
                             </div>	
                         </form>

@@ -48,13 +48,16 @@ public class EventosRecursosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
+        
         if (Utils.isNotEmpty(req.getParameter("eventos_id"))) {
             try (PrintWriter writer = resp.getWriter()) {
                 EventosRecursos eventoRec = new EventosRecursos();
                 eventoRec.parse(Utils.getParameterMap(req));
                 if (Utils.isNotEmpty(req.getParameter("id"))) {
+                    System.out.println("Atualiza");
                     eventoRec = dao.atualizar(eventoRec);
                 } else {
+                    System.out.println("Insere");
                     eventoRec = dao.inserir(Utils.parseLong(req.getParameter("eventos_id")), eventoRec);
                 }
                 writer.append(eventoRec.toString());

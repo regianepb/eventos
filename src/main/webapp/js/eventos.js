@@ -1,5 +1,4 @@
-$(function () {
-
+$(function () {        
     carregar();
     carregarLocais(); 
 
@@ -13,8 +12,9 @@ $(function () {
     });
     
     $('#btnEnviarRec').click(function () {
-        var idEvento = $("#eventosForm input[name=id]").val();
-        $.post('eventos_recursos', $('form').serialize(), function () {
+        var idEvento = $("#eventosForm input[name=id]").val();    
+        $("#EventosRecForm input[name=eventos_id]").val(idEvento);    
+        $.post('eventos_recursos', $('form[id=EventosRecForm]').serialize(), function () {
             carregarEventosRecursos(idEvento)();
             $('form').each(function () {
                 this.reset();
@@ -100,6 +100,17 @@ function limparForm() {
     carregarLocais();
 }
 
+function limparFormEventosRec() {
+    $("input[name=id]").val("");
+    $("input[name=eventos_id]").val("");
+    $("input[name=recursos_id]").val("");
+    $("input[name=qtd]").val("");
+    $("input[name=valor]").val("");
+    
+}
+
+
+
 function carregarEventosRecursos(eventos_id) {
     $.getJSON('eventos_recursos', 'eventos_id=' + eventos_id).success(function (registros) { 
         window.templateRec = window.templateRec || $('#divTableRec table tbody').html();
@@ -135,15 +146,16 @@ function editarRec(id) {
         $("input[name=id]").val(data.id);
         $("select[name=recursos_id]").val(data.recursos_id.id);
         $("input[name=qtd]").val(data.qtd);
-        $("input[name=valor]").val(data.valor);                   
+        $("input[name=valor]").val(data.valor);    
     });    
 }
 
-function excluirRec(id, eventos_id) {
+function excluirRec(id) {
     $.ajax("eventos_recursos?id=" + id, {
         type: "DELETE"
     }).success(function () {
-        carregarEventosRecursos(eventos_id);
+        var idEvento = $("#eventosForm input[name=id]").val();       
+        carregarEventosRecursos(idEvento);
     }).error(function () {
         alert("Não é possível excluir esse registro pois ele possui dependências.");
     });
