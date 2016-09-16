@@ -3,7 +3,7 @@ $(function () {
     carregarLocais(); 
 
     $('#btnEnviar').click(function () {
-        $.post('eventos', $('form').serialize(), function () {
+        $.post('eventos', $('form[id=eventosForm]').serialize(), function () {
             carregar();
             $('form').each(function () {
                 this.reset();
@@ -16,7 +16,7 @@ $(function () {
         $("#EventosRecForm input[name=eventos_id]").val(idEvento);    
         $.post('eventos_recursos', $('form[id=EventosRecForm]').serialize(), function () {
             carregarEventosRecursos(idEvento)();
-            $('form').each(function () {
+            $('EventosRecForm').each(function () {
                 this.reset();
             });
         });

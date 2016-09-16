@@ -44,26 +44,16 @@ public class EventosDao {
 
     public Eventos atualizar(Eventos evento) throws Exception {
         try {
-            PreparedStatement stm = Connection.get().getParamStm("UPDATE EVENTOS SET DESCRICAO = ?, DATA = ?, HORA = ?, QTD_PESSOAS = ?, LOCAIS_ID = ? WHERE ID = ?");
+            PreparedStatement stm = Connection.get().getParamStm("UPDATE EVENTOS SET DESCRICAO = ?, DATA = ?, HORA = '20:00', QTD_PESSOAS = ?, LOCAIS_ID = ? WHERE ID = ?");
             stm.setString(1, evento.getDescricao());
-            stm.setString(2, evento.getData());
-            stm.setString(3, evento.getHora());
-            /*
-            if (Utils.isNotNull(evento.getData())) {
-                stm.setDate(2, Date.valueOf(evento.getData()));
-            } else {
-                stm.setNull(2, Types.DATE);
-            } 
-            if (Utils.isNotNull(evento.getHora())) {
-                stm.setTime(3, Time.valueOf(evento.getHora()));
-            } else {
-                stm.setNull(3, Types.TIME);
-            } */
-            stm.setLong(4, evento.getQtd_pessoas());
+            stm.setDate(2, Date.valueOf(evento.getData()));
+//            stm.setString(3, evento.getHora());
+           
+            stm.setLong(3, evento.getQtd_pessoas());
             if (evento.getLocais_id()!= null && evento.getLocais_id().getId() != null) {
-                stm.setLong(5, evento.getLocais_id().getId());
+                stm.setLong(4, evento.getLocais_id().getId());
             } else {
-                stm.setNull(5, Types.INTEGER);
+                stm.setNull(4, Types.INTEGER);
             }
             stm.setLong(5, evento.getId());
             stm.execute();

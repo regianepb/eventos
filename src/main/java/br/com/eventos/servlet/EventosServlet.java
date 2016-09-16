@@ -23,13 +23,13 @@ public class EventosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
-        try (PrintWriter writer = resp.getWriter()) {
+        try (PrintWriter writer = resp.getWriter()) {            
             if (Utils.isNotEmpty(req.getParameter("id"))) {
-                // ler apenas um registro
+                // ler apenas um registro                
                 Eventos e = dao.buscar(Utils.parseLong(req.getParameter("id")));
                 writer.append(e.toString());
             } else {
-                // ler todos
+                // ler todos                
                 List<Eventos> eventos = dao.listarTodos(req.getParameter("filter"));
                 writer.append(Utils.convertListToString(eventos));
             }
@@ -45,12 +45,10 @@ public class EventosServlet extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         try (PrintWriter writer = resp.getWriter()) {
             Eventos e = new Eventos();
-            e.parse(Utils.getParameterMap(req));
-            if (Utils.isNotEmpty(req.getParameter("id"))) {
+            e.parse(Utils.getParameterMap(req));            
+            if (Utils.isNotEmpty(req.getParameter("id"))) {                
                 e = dao.atualizar(e);
-            } else {
-                System.out.println("inserir");
-                System.out.println(e);
+            } else {                
                 e = dao.inserir(e);
             }
             writer.append(e.toString());

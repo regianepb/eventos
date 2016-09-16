@@ -54,10 +54,10 @@ public class EventosRecursosServlet extends HttpServlet {
                 EventosRecursos eventoRec = new EventosRecursos();
                 eventoRec.parse(Utils.getParameterMap(req));
                 if (Utils.isNotEmpty(req.getParameter("id"))) {
-                    System.out.println("Atualiza");
+                    System.out.println("Atualiza eventos_recursos");
                     eventoRec = dao.atualizar(eventoRec);
                 } else {
-                    System.out.println("Insere");
+                    System.out.println("Insere eventos_recursos");
                     eventoRec = dao.inserir(Utils.parseLong(req.getParameter("eventos_id")), eventoRec);
                 }
                 writer.append(eventoRec.toString());
