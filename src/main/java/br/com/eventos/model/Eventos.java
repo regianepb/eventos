@@ -4,6 +4,7 @@ import br.com.eventos.util.Utils;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 public class Eventos implements Parseable {
     private Long id;

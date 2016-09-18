@@ -15,9 +15,12 @@ $(function () {
         var idEvento = $("#eventosForm input[name=id]").val();    
         $("#EventosRecForm input[name=eventos_id]").val(idEvento);    
         $.post('eventos_recursos', $('form[id=EventosRecForm]').serialize(), function () {
-            carregarEventosRecursos(idEvento)();
-            $('EventosRecForm').each(function () {
-                this.reset();
+            carregarEventosRecursos(idEvento)();            
+            alert("entrou aq");
+            $('eventosForm').each(function () {
+                
+                limparFormEventosRec();
+                this.reset();                
             });
         });
     });
@@ -101,11 +104,13 @@ function limparForm() {
 }
 
 function limparFormEventosRec() {
-    $("input[name=id]").val("");
-    $("input[name=eventos_id]").val("");
-    $("input[name=recursos_id]").val("");
-    $("input[name=qtd]").val("");
-    $("input[name=valor]").val("");
+    alert("limpar rec forma");
+    $("#EventosRecForm input[name=id]").val("");
+    $("#EventosRecForm input[name=eventos_id]").val("");
+//    $("#EventosRecForm select[name=recursos_id]").val("");
+    $("#EventosRecForm input[name=qtd]").val("");
+    $("#EventosRecForm input[name=valor]").val("");
+    $("#EventosRecForm input[name=total]").val("");
     
 }
 
@@ -117,12 +122,14 @@ function carregarEventosRecursos(eventos_id) {
         var trHtml = window.templateRec;
         var respHtml = "";
         registros.forEach(function (item) {
+            var total = item.qtd * item.valor;
             respHtml += trHtml
                     .replace(/\{\{id\}\}/g, item.id)
                     .replace(/\{\{eventos_id\}\}/g, item.eventos_id)
                     .replace(/\{\{recursos_id\}\}/g, item.recursos_id.descricao)
                     .replace(/\{\{qtd\}\}/g, item.qtd)
-                    .replace(/\{\{valor\}\}/g, item.valor);
+                    .replace(/\{\{valor\}\}/g, item.valor)
+                    .replace(/\{\{total\}\}/g, total);            
         });
         $('#divTableRec table tbody').html(respHtml);        
         carregarRecursos();
@@ -147,6 +154,8 @@ function editarRec(id) {
         $("select[name=recursos_id]").val(data.recursos_id.id);
         $("input[name=qtd]").val(data.qtd);
         $("input[name=valor]").val(data.valor);    
+        $("input[name=total]").parseDouble(val(data.qtd) * val(data.valor));           
+        
     });    
 }
 
@@ -155,7 +164,7 @@ function excluirRec(id) {
         type: "DELETE"
     }).success(function () {
         var idEvento = $("#eventosForm input[name=id]").val();       
-        carregarEventosRecursos(idEvento);
+        carregarEventosRecursos(idEvento);        
     }).error(function () {
         alert("Não é possível excluir esse registro pois ele possui dependências.");
     });
