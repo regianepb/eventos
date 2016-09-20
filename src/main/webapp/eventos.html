@@ -303,13 +303,13 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Quantidade</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="qtd" type="text" class="form-control" placeholder="Quantidade">
+                                    <input name="qtd" type="text" class="form-control" placeholder="Quantidade" onchange="calculaTotalRecurso()">
                                 </div>
                             </div>                            
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Valor</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="valor" type="text" class="form-control" placeholder="Valor">
+                                    <input name="valor" type="text" class="form-control" placeholder="Valor" onchange="calculaTotalRecurso()">
                                 </div>
                             </div>                                                      
                             <div class="form-group">
@@ -334,7 +334,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="dist/js/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="dist/jquery.maskMoney.js"></script>
+        <script src="dist/jquery.maskMoney.min.js"></script>
         <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
         <script src="js/eventos.js"></script>
 

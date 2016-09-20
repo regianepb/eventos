@@ -129,7 +129,7 @@ function carregarEventosRecursos(eventos_id) {
                     .replace(/\{\{recursos_id\}\}/g, item.recursos_id.descricao)
                     .replace(/\{\{qtd\}\}/g, item.qtd)
                     .replace(/\{\{valor\}\}/g, item.valor)
-                    .replace(/\{\{total\}\}/g, total);            
+                    .replace(/\{\{total\}\}/g, total.maskMoney({thousands:'.',decimal:','}));            
         });
         $('#divTableRec table tbody').html(respHtml);        
         carregarRecursos();
@@ -168,4 +168,15 @@ function excluirRec(id) {
     }).error(function () {
         alert("Não é possível excluir esse registro pois ele possui dependências.");
     });
+}
+
+function calculaTotalRecurso(){
+    var qtd = $("#EventosRecForm input[name=qtd]").val(); 
+    var valor = $("#EventosRecForm input[name=valor]").val(); 
+    var total = qtd * valor;
+    if(total > 0){
+        $("#EventosRecForm input[name=total]").val(total);   
+    }else{
+        $("#EventosRecForm input[name=total]").val("");   
+    };    
 }
