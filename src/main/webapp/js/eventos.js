@@ -15,11 +15,12 @@ $(function () {
         var idEvento = $("#eventosForm input[name=id]").val();    
         $("#EventosRecForm input[name=eventos_id]").val(idEvento);    
         $.post('eventos_recursos', $('form[id=EventosRecForm]').serialize(), function () {
+            limparFormEventosRec();
             carregarEventosRecursos(idEvento)();            
             alert("entrou aq");
-            $('eventosForm').each(function () {
+            $('eventosRecForm').each(function () {
                 
-                limparFormEventosRec();
+//                limparFormEventosRec();
                 this.reset();                
             });
         });
@@ -70,12 +71,12 @@ function carregarLocais(executa) {
 
 function editar(id) {
     $.getJSON("eventos?id=" + id).success(function (data) {
-        $("input[name=id]").val(data.id);
-        $("input[name=descricao]").val(data.descricao);
-        $("input[name=data]").val(data.data);
-        $("input[name=hora]").val(data.hora);
-        $("input[name=qtd_pessoas]").val(data.qtd_pessoas);
-        $("select[name=locais_id]").val(data.locais_id.id);     
+        $("#eventosForm input[name=id]").val(data.id);
+        $("#eventosForm input[name=descricao]").val(data.descricao);
+        $("#eventosForm input[name=data]").val(data.data);
+        $("#eventosForm input[name=hora]").val(data.hora);
+        $("#eventosForm input[name=qtd_pessoas]").val(data.qtd_pessoas);
+        $("#eventosForm select[name=locais_id]").val(data.locais_id.id);     
         carregarEventosRecursos(name=id);
     });    
 }
@@ -129,7 +130,7 @@ function carregarEventosRecursos(eventos_id) {
                     .replace(/\{\{recursos_id\}\}/g, item.recursos_id.descricao)
                     .replace(/\{\{qtd\}\}/g, item.qtd)
                     .replace(/\{\{valor\}\}/g, item.valor)
-                    .replace(/\{\{total\}\}/g, total.maskMoney({thousands:'.',decimal:','}));            
+                    .replace(/\{\{total\}\}/g, total);            
         });
         $('#divTableRec table tbody').html(respHtml);        
         carregarRecursos();
@@ -151,10 +152,11 @@ function carregarRecursos(executa) {
 function editarRec(id) {
     $.getJSON("eventos_recursos?id=" + id).success(function (data) {
         $("input[name=id]").val(data.id);
+        $("input[name=eventos_id]").val(data.eventos_id.id);
         $("select[name=recursos_id]").val(data.recursos_id.id);
         $("input[name=qtd]").val(data.qtd);
         $("input[name=valor]").val(data.valor);    
-        $("input[name=total]").parseDouble(val(data.qtd) * val(data.valor));           
+        $("input[name=total]").val(data.total);           
         
     });    
 }
