@@ -141,8 +141,8 @@
                                 <div role="tabpanel" class="tab-pane active" id="eventos">                                     
                                     <div class="form-group">
                                         <form id="eventosForm" class="form-horizontal">
-                                            <!--<input style="visibility:hidden;" name="id" />-->
-                                            <input name="id" />
+                                            <input style="visibility:hidden;" name="id" />
+                                            <!--<input name="id" />-->
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Descrição</label>  
                                                 <div class="col-xs-5">
@@ -184,7 +184,7 @@
                                         <form id="recursosForm" class="form-horizontal">
                                             <div class="form-group" id="divTableRec">
 
-                                                
+
                                                 <div class="col-md-12" style="margin-bottom:10px;" id="divTableRec"> 
                                                     <div class="row" style="margin-bottom:15px;">
                                                         <div class="col-md-6">
@@ -224,7 +224,16 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
+
                                                         </tbody>     
+                                                        <tfoot>
+                                                            <tr> <td> </td></tr>
+                                                            <tr> <td> </td></tr>
+                                                            <tr>
+                                                                <td><b>Valor Total dos Recursos</b></td>
+                                                                <td>{{vlrTotalRec}}</td>
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
 
@@ -278,10 +287,10 @@
                 </div>
             </div>
         </div>
-        
-        
-        
-        
+
+
+
+
         <div class="modal fade" id="adicionarRec">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -291,10 +300,8 @@
                     </div>
                     <div class="modal-body">
                         <form id="EventosRecForm" class="form-horizontal">
-<!--                            <input style="visibility:hidden;" name="id" />                            
-                            <input style="visibility:hidden;" name="eventos_id" />                            -->
-<input name="id" />
-<input name="eventos_id" />
+                            <input style="visibility:hidden;" name="id" />                            
+                            <input style="visibility:hidden;" name="eventos_id" />                                                        
                             <div class="form-group">
                                 <label class="col-xs-3 control-label">Recurso</label>  
                                 <div class="col-xs-5">
@@ -328,9 +335,9 @@
                 </div>
             </div>
         </div>
-        
-        
-        
+
+
+
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script>

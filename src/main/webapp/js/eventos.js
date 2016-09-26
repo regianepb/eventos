@@ -1,27 +1,25 @@
-$(function () {        
+$(function () {
     carregar();
-    carregarLocais(); 
+    carregarLocais();
 
     $('#btnEnviar').click(function () {
         $.post('eventos', $('form[id=eventosForm]').serialize(), function () {
+            limparForm();
             carregar();
             $('form').each(function () {
                 this.reset();
             });
         });
     });
-    
+
     $('#btnEnviarRec').click(function () {
-        var idEvento = $("#eventosForm input[name=id]").val();    
-        $("#EventosRecForm input[name=eventos_id]").val(idEvento);    
+        var idEvento = $("#eventosForm input[name=id]").val();
+        $("#EventosRecForm input[name=eventos_id]").val(idEvento);
         $.post('eventos_recursos', $('form[id=EventosRecForm]').serialize(), function () {
             limparFormEventosRec();
-            carregarEventosRecursos(idEvento)();            
-            alert("entrou aq");
+            carregarEventosRecursos(idEvento)();
             $('eventosRecForm').each(function () {
-                
-//                limparFormEventosRec();
-                this.reset();                
+                this.reset();
             });
         });
     });
@@ -58,7 +56,7 @@ function carregar() {
 }
 
 function carregarLocais(executa) {
-    $.getJSON('locais').success(function(locais) {
+    $.getJSON('locais').success(function (locais) {
         var options = "";
         locais.forEach(function (item) {
             options += '<option value="' + item.id + '">' + item.descricao + '</option>';
@@ -71,14 +69,14 @@ function carregarLocais(executa) {
 
 function editar(id) {
     $.getJSON("eventos?id=" + id).success(function (data) {
-        $("#eventosForm input[name=id]").val(data.id);
-        $("#eventosForm input[name=descricao]").val(data.descricao);
-        $("#eventosForm input[name=data]").val(data.data);
-        $("#eventosForm input[name=hora]").val(data.hora);
-        $("#eventosForm input[name=qtd_pessoas]").val(data.qtd_pessoas);
-        $("#eventosForm select[name=locais_id]").val(data.locais_id.id);     
-        carregarEventosRecursos(name=id);
-    });    
+        $("form[id=eventosForm] input[name=id]").val(data.id);
+        $("form[id=eventosForm] input[name=descricao]").val(data.descricao);
+        $("form[id=eventosForm] input[name=data]").val(data.data);
+        $("form[id=eventosForm] input[name=hora]").val(data.hora);
+        $("form[id=eventosForm] input[name=qtd_pessoas]").val(data.qtd_pessoas);
+        $("form[id=eventosForm] select[name=locais_id]").val(data.locais_id.id);
+        carregarEventosRecursos(name = id);
+    });
 }
 
 function excluir(id) {
@@ -92,53 +90,60 @@ function excluir(id) {
 }
 
 function limparForm() {
-    $("input[name=id]").val("");
-    $("input[name=descricao]").val("");
-    $("input[name=data]").val("");
-    $("input[name=hora]").val("");
-    $("input[name=qtd_pessoas]").val("");
-    $("select[name=locais_id]").val("");
-    
+    $("form[id=eventosForm] input[name=id]").val("");
+    $("form[id=eventosForm] input[name=descricao]").val("");
+    $("form[id=eventosForm] input[name=data]").val("");
+    $("form[id=eventosForm] input[name=hora]").val("");
+    $("form[id=eventosForm] input[name=qtd_pessoas]").val("");
+    $("form[id=eventosForm] select[name=locais_id]").val("");
+
 //    Ver como resetar a tab dos recursos da maneira correta
 //    carregarEventosRecursos(0);    
     carregarLocais();
 }
 
 function limparFormEventosRec() {
-    alert("limpar rec forma");
-    $("#EventosRecForm input[name=id]").val("");
-    $("#EventosRecForm input[name=eventos_id]").val("");
-//    $("#EventosRecForm select[name=recursos_id]").val("");
-    $("#EventosRecForm input[name=qtd]").val("");
-    $("#EventosRecForm input[name=valor]").val("");
-    $("#EventosRecForm input[name=total]").val("");
-    
+    $("form[id=EventosRecForm] input[name=id]").val("");
+    $("form[id=EventosRecForm] input[name=eventos_id]").val("");
+    $("form[id=EventosRecForm] select[name=recursos_id]").val("");
+    $("form[id=EventosRecForm] input[name=qtd]").val("");
+    $("form[id=EventosRecForm] input[name=valor]").val("");
+    $("form[id=EventosRecForm] input[name=total]").val("");
 }
 
-
-
-function carregarEventosRecursos(eventos_id) {
-    $.getJSON('eventos_recursos', 'eventos_id=' + eventos_id).success(function (registros) { 
+function carregarEventosRecursos(eventos_id) {    
+    $.getJSON('eventos_recursos', 'eventos_id=' + eventos_id).success(function (registros) {
         window.templateRec = window.templateRec || $('#divTableRec table tbody').html();
         var trHtml = window.templateRec;
         var respHtml = "";
+        var totalDosRec = 0;
         registros.forEach(function (item) {
             var total = item.qtd * item.valor;
+            totalDosRec += total;
+            alert(totalDosRec);
             respHtml += trHtml
                     .replace(/\{\{id\}\}/g, item.id)
                     .replace(/\{\{eventos_id\}\}/g, item.eventos_id)
                     .replace(/\{\{recursos_id\}\}/g, item.recursos_id.descricao)
                     .replace(/\{\{qtd\}\}/g, item.qtd)
                     .replace(/\{\{valor\}\}/g, item.valor)
-                    .replace(/\{\{total\}\}/g, total);            
+                    .replace(/\{\{total\}\}/g, total.toFixed(2));            
         });
+        
+//        window.templateRecFoot = window.templateRecFoot || $('#divTableRec table tfoot').html();
+//        var trHtmlFoot = $('#divTableRec table tfoot').html(); //window.templateRecFoot;
+        var respHtmlFoot = "";        
+        respHtmlFoot = $('#divTableRec table tfoot').html().replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));            
+        
         $('#divTableRec table tbody').html(respHtml);        
+        $('#divTableRec table tfoot').html(respHtmlFoot);        
         carregarRecursos();
     });
+    
 }
 
 function carregarRecursos(executa) {
-    $.getJSON('recursos').success(function(recursos) {
+    $.getJSON('recursos').success(function (recursos) {
         var options = "";
         recursos.forEach(function (item) {
             options += '<option value="' + item.id + '">' + item.descricao + '</option>';
@@ -151,34 +156,33 @@ function carregarRecursos(executa) {
 
 function editarRec(id) {
     $.getJSON("eventos_recursos?id=" + id).success(function (data) {
-        $("input[name=id]").val(data.id);
-        $("input[name=eventos_id]").val(data.eventos_id.id);
-        $("select[name=recursos_id]").val(data.recursos_id.id);
-        $("input[name=qtd]").val(data.qtd);
-        $("input[name=valor]").val(data.valor);    
-        $("input[name=total]").val(data.total);           
-        
-    });    
+        $("form[id=EventosRecForm] input[name=id]").val(data.id);
+        $("form[id=EventosRecForm] input[name=eventos_id]").val(data.eventos_id.id);
+        $("form[id=EventosRecForm] select[name=recursos_id]").val(data.recursos_id.id);
+        $("form[id=EventosRecForm] input[name=qtd]").val(data.qtd);
+        $("form[id=EventosRecForm] input[name=valor]").val(data.valor);
+        calculaTotalRecurso();
+    });
 }
 
 function excluirRec(id) {
     $.ajax("eventos_recursos?id=" + id, {
         type: "DELETE"
     }).success(function () {
-        var idEvento = $("#eventosForm input[name=id]").val();       
-        carregarEventosRecursos(idEvento);        
+        var idEvento = $("#eventosForm input[name=id]").val();
+        carregarEventosRecursos(idEvento);
     }).error(function () {
         alert("Não é possível excluir esse registro pois ele possui dependências.");
     });
 }
 
-function calculaTotalRecurso(){
-    var qtd = $("#EventosRecForm input[name=qtd]").val(); 
-    var valor = $("#EventosRecForm input[name=valor]").val(); 
+function calculaTotalRecurso() {
+    var qtd = $("#EventosRecForm input[name=qtd]").val();
+    var valor = $("#EventosRecForm input[name=valor]").val();
     var total = qtd * valor;
-    if(total > 0){
-        $("#EventosRecForm input[name=total]").val(total);   
-    }else{
-        $("#EventosRecForm input[name=total]").val("");   
-    };    
+    if (total > 0) {
+        $("#EventosRecForm input[name=total]").val(total);
+    } else {
+        $("#EventosRecForm input[name=total]").val("");
+    };
 }
