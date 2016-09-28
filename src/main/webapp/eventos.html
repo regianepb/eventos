@@ -130,15 +130,15 @@
                         <div>
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#eventos" aria-controls="home" role="tab" data-toggle="tab">Eventos</a></li>
-                                <li role="presentation"><a href="#recursos" aria-controls="profile" role="tab" data-toggle="tab">Recursos</a></li>
-                                <li role="presentation"><a href="#despesas" aria-controls="profile" role="tab" data-toggle="tab">Despesas</a></li>
-                                <li role="presentation"><a href="#resumo" aria-controls="profile" role="tab" data-toggle="tab">Resumo</a></li>
+                                <li role="presentation" class="active"><a href="#eventos" aria-controls="home" role="tabEvento" data-toggle="tab">Eventos</a></li>
+                                <li role="presentation"><a href="#recursos" aria-controls="recursos" role="tabRecurso"  data-toggle="tab" onclick="verificarTab()">Recursos</a></li>
+                                <li role="presentation"><a href="#despesas" aria-controls="despesas" role="tabDespesa" data-toggle="tab" onclick="verificarTab()">Despesas</a></li>
+                                <li role="presentation"><a href="#resumo" aria-controls="resumo" role="tab" data-toggle="tab">Resumo</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="eventos">                                     
+                                <div role="tabpanel" class="tab-pane active" id="eventos" fade in >                                     
                                     <div class="form-group">
                                         <form id="eventosForm" class="form-horizontal">
                                             <input style="visibility:hidden;" name="id" />
@@ -191,7 +191,7 @@
                                                             <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#adicionarRec">Novo Recurso</button>  
                                                         </div>
                                                     </div>
-                                                    <table class="table table-bordered table-striped  table-condensed">
+                                                    <table id="TableEveRec" class="table table-bordered table-striped  table-condensed">
                                                         <thead>
                                                         <th>
                                                             Recurso
@@ -225,18 +225,19 @@
                                                                 </td>
                                                             </tr>
 
-                                                        </tbody>     
-                                                        <tfoot>
-                                                            <tr> <td> </td></tr>
-                                                            <tr> <td> </td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <tfoot>
+                                                    <div class="col-md-12" style="margin-bottom:10px;" id="divTabletTotRec">
+                                                        <table id="TableEveTotRec" class="table table-bordered table-striped  table-condensed">
                                                             <tr>
                                                                 <td><b>Valor Total dos Recursos</b></td>
                                                                 <td>{{vlrTotalRec}}</td>
                                                             </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-
+                                                        </table>
+                                                    </div>   
+                                                </tfoot>
                                             </div>                                            
                                         </form> 
                                     </div>

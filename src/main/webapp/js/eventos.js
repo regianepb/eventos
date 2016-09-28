@@ -120,7 +120,6 @@ function carregarEventosRecursos(eventos_id) {
         registros.forEach(function (item) {
             var total = item.qtd * item.valor;
             totalDosRec += total;
-            alert(totalDosRec);
             respHtml += trHtml
                     .replace(/\{\{id\}\}/g, item.id)
                     .replace(/\{\{eventos_id\}\}/g, item.eventos_id)
@@ -129,14 +128,14 @@ function carregarEventosRecursos(eventos_id) {
                     .replace(/\{\{valor\}\}/g, item.valor)
                     .replace(/\{\{total\}\}/g, total.toFixed(2));            
         });
+        $('#divTableRec table tbody').html(respHtml);
         
-//        window.templateRecFoot = window.templateRecFoot || $('#divTableRec table tfoot').html();
-//        var trHtmlFoot = $('#divTableRec table tfoot').html(); //window.templateRecFoot;
-        var respHtmlFoot = "";        
-        respHtmlFoot = $('#divTableRec table tfoot').html().replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));            
-        
-        $('#divTableRec table tbody').html(respHtml);        
-        $('#divTableRec table tfoot').html(respHtmlFoot);        
+//        window.templateRecFoot = $('#divTabletTotRec table tfoot').html();
+//        var trHtmlFoot = $('#divTabletTotRec table tfoot').html();
+//        var respHtmlFoot = "";
+//        respHtmlFoot = trHtmlFoot.replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));            
+//        
+//        $('#divTableTotRec table tfoot').html(respHtmlFoot);        
         carregarRecursos();
     });
     
@@ -185,4 +184,18 @@ function calculaTotalRecurso() {
     } else {
         $("#EventosRecForm input[name=total]").val("");
     };
+}
+
+
+function verificarTab() {
+    var idEvento = $("#eventosForm input[name=id]").val();
+    if (idEvento === "") {
+        $('.nav-tabs a[href="#eventos"]').tab('show');
+        alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
+    } else {
+        alert("gravado");
+    };
+    
+    
+    
 }

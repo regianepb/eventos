@@ -1,0 +1,23 @@
+- Tela principal de eventos
+	- Tela de recursos
+		- Ajustar editar - OK
+		- Formatar totais 
+		- Carregar total ao editar OK
+		- Gravar o editar OK
+		- Demonstrar total dos recursos
+		
+	- Fazer a parte das despesas
+	
+	- Fazer o resumo na primeira tela 
+	
+	- Fazer tela com next pois ele tem que gravar o evento primeiro
+	
+	- Ver o problema do time
+	
+	- Limpar quando fechar a janela
+	
+- Classe de Testes
+- Procedures 
+- Triggers
+- 
+
