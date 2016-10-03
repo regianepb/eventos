@@ -61,10 +61,12 @@ public class EventosDespesas implements Parseable {
               
     @Override
     public String toString() {
-        return String.format("{\"id\":\"%s\", \"eventos_id\":\"%s\", \"despesas_id\":\"%s\", \"qtd\":\"%s\", \"valor\":\"%s\"}", 
+        return String.format("{\"id\":\"%s\", \"eventos_id\":%s, \"despesas_id\":%s, \"qtd\":\"%s\", \"valor\":\"%s\"}", 
                 id, eventos_id, despesas_id, qtd, valor);
     }
 
+        
+    
     @Override
     public void parse(Map<String, String> values) {
         id = Utils.parseLong(values.get("id"));

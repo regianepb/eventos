@@ -11,31 +11,28 @@ import java.util.List;
 
 public class EventosDespesasDao {
 
-    public EventosDespesas inserir(EventosDespesas evedesp) throws Exception {
+    public EventosDespesas inserir(Long idEvento, EventosDespesas everec) throws Exception {
         try {
-            evedesp.setId(buscarProximoId());
+            everec.setId(buscarProximoId());
 
             PreparedStatement stm = Connection.get().getParamStm("INSERT INTO EVENTOS_DESPESAS (ID, EVENTOS_ID, DESPESAS_ID, QTD, VALOR) VALUES(?, ?, ?, ?, ?)");
-            stm.setLong(1, evedesp.getId());
-            if (Utils.isNotNull(evedesp.getEventos_id(), evedesp.getEventos_id().getId())) {
-                stm.setLong(2, evedesp.getEventos_id().getId());
-            } else {
-                stm.setNull(2, Types.INTEGER);
-            }
-            if (Utils.isNotNull(evedesp.getDespesas_id(), evedesp.getDespesas_id().getId())) {
-                stm.setLong(3, evedesp.getDespesas_id().getId());
+            stm.setLong(1, everec.getId());
+            stm.setLong(2, idEvento);
+            if (Utils.isNotNull(everec.getDespesas_id(), everec.getDespesas_id().getId())) {
+                stm.setLong(3, everec.getDespesas_id().getId());
             } else {
                 stm.setNull(3, Types.INTEGER);
             }
-            stm.setBigDecimal(4, evedesp.getQtd());
-            stm.setBigDecimal(5, evedesp.getValor());
+            stm.setBigDecimal(4, everec.getQtd());
+            stm.setBigDecimal(5, everec.getValor());
             stm.execute();
 
-            return buscar(evedesp.getId());
+            return buscar(everec.getId());
         } catch (SQLException ex) {
             throw new Exception("Erro ao inserir o registro", ex);
         }
     }
+    
 
     public EventosDespesas atualizar(EventosDespesas evedesp) throws Exception {
         try {
@@ -75,27 +72,23 @@ public class EventosDespesasDao {
         }
     }
 
-    public List<EventosDespesas> listarTodos(String nome) throws Exception {
+    public List<EventosDespesas> listarTodos(Long eventos_id) throws Exception {
         try {
-            List<EventosDespesas> evedesps = new ArrayList<>();
+            List<EventosDespesas> itens = new ArrayList<>();
 
-            PreparedStatement stm;
-            if (Utils.isNotEmpty(nome)) {
-                stm = Connection.get().getParamStm("SELECT * FROM EVENTOS_DESPESAS WHERE EVENTOS_ID = ? ORDER BY EVENTOS_ID");
-                stm.setString(1, '%' + nome.toUpperCase().replaceAll(" ", "%") + '%');
-            } else {
-                stm = Connection.get().getParamStm("SELECT * FROM EVENTOS_DESPESAS ORDER BY EVENTOS_ID");
-            }
+            PreparedStatement stm = Connection.get().getParamStm("SELECT * FROM EVENTOS_DESPESAS WHERE EVENTOS_ID = ? ORDER BY ID");
+            stm.setLong(1, eventos_id);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
-                evedesps.add(lerRegistro(rs));
+                itens.add(lerRegistro(rs));
             }
-            return evedesps;
+            return itens;
         } catch (SQLException ex) {
-            throw new Exception("Erro ao listar os registro", ex);
+            throw new Exception("Erro ao listar os registros", ex);
         }
     }
+    
 
     public EventosDespesas buscar(Long id) throws Exception {
         if (id == null) {
