@@ -136,9 +136,9 @@
                                 <li role="presentation" class="active"><a href="#eventos" aria-controls="home" role="tabEvento" data-toggle="tab">Eventos</a></li>
                                 <li role="presentation"><a href="#recursos" aria-controls="recursos" role="tabRecurso"  data-toggle="tab" onclick="verificarTab()">Recursos</a></li>
                                 <li role="presentation"><a href="#despesas" aria-controls="despesas" role="tabDespesa" data-toggle="tab" onclick="verificarTab()">Despesas</a></li>
-                                <li role="presentation"><a href="#resumo" aria-controls="resumo" role="tab" data-toggle="tab">Resumo</a></li>
+                                <li role="presentation"><a href="#resumo" aria-controls="resumo" role="tabResumo" data-toggle="tab" onclick="calcularResumo()">Resumo</a></li>
                             </ul>
-   
+
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="eventos" fade in >                                     
@@ -178,12 +178,6 @@
                                             </div>
                                         </form> 
                                     </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="control-label col-xs-20">teste</label>
-                                        
-                                        </div>
-
                                 </div>
 
 
@@ -320,13 +314,25 @@
                                 <div role="tabpanel" class="tab-pane" id="resumo"> 
                                     <input style="visibility:hidden;" name="id" />
                                     <div class="form-group">
-                                        <form id="resumoForm" class="form-horizontal">
+                                        <form id="resumoForm" class="form-horizontal">                                            
                                             <div class="form-group">
-                                                <label class="control-label col-xs-3">Descrição4</label>  
+                                                <label class="control-label col-xs-3">Total dos Recursos</label>  
                                                 <div class="col-xs-5">
-                                                    <input name="descricao" type="text" class="form-control input-md" placeholder="Descrição"  required>
+                                                    <input name="total_rec_res" type="text" class="form-control input-md" disabled >
                                                 </div>
-                                            </div>                                            
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Total das Despesas</label>  
+                                                <div class="col-xs-5">
+                                                    <input name="total_desp_res" type="text" class="form-control input-md" disabled >
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-3">Saldo do evento</label>  
+                                                <div class="col-xs-5">
+                                                    <input name="saldo_res" type="text" class="form-control input-md" disabled >
+                                                </div>
+                                            </div>
                                         </form> 
                                     </div>
                                 </div>

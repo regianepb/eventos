@@ -4,9 +4,9 @@
 		- Formatar totais 
 		- Carregar total ao editar OK
 		- Gravar o editar OK
-		- Demonstrar total dos recursos
+		- Demonstrar total dos recursos e das despesas em cada guia
 		
-	- Fazer a parte das despesas
+	- Fazer a parte das despesas OK
 	
 	- Fazer o resumo na primeira tela 
 	

@@ -198,7 +198,8 @@ function calculaTotalRecurso() {
         $("#EventosRecForm input[name=total]").val(total);
     } else {
         $("#EventosRecForm input[name=total]").val("");
-    };
+    }
+    ;
 }
 
 
@@ -278,7 +279,8 @@ function calculaTotalDespesa() {
         $("#EventosDespForm input[name=total]").val(total);
     } else {
         $("#EventosDespForm input[name=total]").val("");
-    };
+    }
+    ;
 }
 
 
@@ -289,5 +291,21 @@ function verificarTab() {
         alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
     } else {
 //        alert("gravado");
-    };
+    }
+    ;
+}
+
+
+function calcularResumo() {
+    var total = 0;
+    
+//    var recursos = $('form[id=recursosForm]').Object();
+    var recursos = $('table[id=TableEveRec]').SerializeObject();
+
+    alert(recursos);
+    recursos.forEach(function (item) {
+        total += item.total;
+    });
+
+    alert("total dos recursos " + total);
 }
