@@ -297,15 +297,32 @@ function verificarTab() {
 
 
 function calcularResumo() {
+    var totalGeralRec = 0;
+    var totalGeralDesp = 0;
     var total = 0;
+    var saldo = 0;
+    var idEvento = $("#eventosForm input[name=id]").val();
     
-//    var recursos = $('form[id=recursosForm]').Object();
-    var recursos = $('table[id=TableEveRec]').SerializeObject();
-
-    alert(recursos);
-    recursos.forEach(function (item) {
-        total += item.total;
+    $.getJSON('eventos_recursos', 'eventos_id=' + idEvento).success(function (registros) {
+        registros.forEach(function (item) {
+            total = item.qtd * item.valor;
+            totalGeralRec += total;            
+        });     
+        saldo = totalGeralRec;
+        $("#resumoForm input[name=total_rec_res]").val(totalGeralRec.toFixed(2));        
+        $("#resumoForm input[name=saldo_res]").val(saldo.toFixed(2));
     });
-
-    alert("total dos recursos " + total);
+    
+    $.getJSON('eventos_despesas', 'eventos_id=' + idEvento).success(function (registros) {
+        registros.forEach(function (item) {
+            total = item.qtd * item.valor;
+            totalGeralDesp += total;            
+        });     
+        saldo -= totalGeralDesp;
+        $("#resumoForm input[name=total_desp_res]").val(totalGeralDesp.toFixed(2));
+        $("#resumoForm input[name=saldo_res]").val(saldo.toFixed(2));
+    });
+    
+    
+    
 }
