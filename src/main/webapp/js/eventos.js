@@ -144,13 +144,12 @@ function carregarEventosRecursos(eventos_id) {
                     .replace(/\{\{total\}\}/g, total.toFixed(2));
         });
         $('#divTableRec table tbody').html(respHtml);
-
-//        window.templateRecFoot = $('#divTabletTotRec table tfoot').html();
-//        var trHtmlFoot = $('#divTabletTotRec table tfoot').html();
-//        var respHtmlFoot = "";
-//        respHtmlFoot = trHtmlFoot.replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));            
-//        
-//        $('#divTableTotRec table tfoot').html(respHtmlFoot);        
+        
+        window.templateRecTot = window.templateRecTot || $('#divTableRecTot table tbody').html();
+        var trHtmlTot = window.templateRecTot;
+        var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));            
+        
+        $('#divTableRecTot table tbody').html(respHtmlTot);        
         carregarRecursos();
     });
 
@@ -231,7 +230,12 @@ function carregarEventosDespesas(eventos_id) {
                     .replace(/\{\{total\}\}/g, total.toFixed(2));
         });
         $('#divTableDesp table tbody').html(respHtml);
-
+        
+        window.templateDespTot = window.templateDespTot || $('#divTableDespTot table tbody').html();
+        var trHtmlTot = window.templateDespTot;
+        var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalDesp\}\}/g, totalDesp.toFixed(2));            
+        
+        $('#divTableDespTot table tbody').html(respHtmlTot);                
         carregarDespesas();
     });
 
@@ -302,27 +306,27 @@ function calcularResumo() {
     var total = 0;
     var saldo = 0;
     var idEvento = $("#eventosForm input[name=id]").val();
-    
+
     $.getJSON('eventos_recursos', 'eventos_id=' + idEvento).success(function (registros) {
         registros.forEach(function (item) {
             total = item.qtd * item.valor;
-            totalGeralRec += total;            
-        });     
+            totalGeralRec += total;
+        });
         saldo = totalGeralRec;
-        $("#resumoForm input[name=total_rec_res]").val(totalGeralRec.toFixed(2));        
+        $("#resumoForm input[name=total_rec_res]").val(totalGeralRec.toFixed(2));
         $("#resumoForm input[name=saldo_res]").val(saldo.toFixed(2));
     });
-    
+
     $.getJSON('eventos_despesas', 'eventos_id=' + idEvento).success(function (registros) {
         registros.forEach(function (item) {
             total = item.qtd * item.valor;
-            totalGeralDesp += total;            
-        });     
+            totalGeralDesp += total;
+        });
         saldo -= totalGeralDesp;
         $("#resumoForm input[name=total_desp_res]").val(totalGeralDesp.toFixed(2));
         $("#resumoForm input[name=saldo_res]").val(saldo.toFixed(2));
     });
-    
-    
-    
+
+
+
 }

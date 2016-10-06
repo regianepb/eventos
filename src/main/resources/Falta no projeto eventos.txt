@@ -8,8 +8,9 @@
 		
 	- Fazer a parte das despesas OK
 	
-	- Fazer o resumo na primeira tela 
-	
+	- Fazer o resumo na primeira tela OK
+            Não vou fazer mais na primeira tela, vou deixar na guia resumo OK
+
 	- Fazer tela com next pois ele tem que gravar o evento primeiro
 	
 	- Ver o problema do time

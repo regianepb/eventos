@@ -231,16 +231,18 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <!--                                                <tfoot>
-                                                                                                    <div class="col-md-12" style="margin-bottom:10px;" id="divTabletTotRec">
-                                                                                                        <table id="TableEveTotRec" class="table table-bordered table-striped  table-condensed">
-                                                                                                            <tr>
-                                                                                                                <td><b>Valor Total dos Recursos</b></td>
-                                                                                                                <td>{{vlrTotalRec}}</td>
-                                                                                                            </tr>
-                                                                                                        </table>
-                                                                                                    </div>   
-                                                                                                </tfoot>-->
+                                            </div>
+                                            <div class="form-group" id="divTableRecTot">
+                                                <div class="col-md-12" style="margin-bottom:10px;" >
+                                                    <table id="TableEveTotRec" class="table table-bordered table-striped  table-condensed">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><b>Valor Total dos Recursos</b></td>
+                                                                <td>{{vlrTotalRec}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>                                               
                                             </div>                                            
                                         </form> 
                                     </div>
@@ -295,16 +297,18 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <!--                                                <tfoot>
-                                                                                                    <div class="col-md-12" style="margin-bottom:10px;" id="divTabletTotRec">
-                                                                                                        <table id="TableEveTotRec" class="table table-bordered table-striped  table-condensed">
-                                                                                                            <tr>
-                                                                                                                <td><b>Valor Total dos Recursos</b></td>
-                                                                                                                <td>{{vlrTotalRec}}</td>
-                                                                                                            </tr>
-                                                                                                        </table>
-                                                                                                    </div>   
-                                                                                                </tfoot>-->
+                                                </div>
+                                                <div class="form-group" id="divTableDespTot">
+                                                <div class="col-md-12" style="margin-bottom:10px;" >
+                                                    <table id="TableEveTotDesp" class="table table-bordered table-striped  table-condensed">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><b>Valor Total das Despesas</b></td>
+                                                                <td>{{vlrTotalDesp}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>                                               
                                             </div>                                            
                                         </form> 
                                     </div>
@@ -317,8 +321,8 @@
                                         <form id="resumoForm" class="form-horizontal">                                            
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Total dos Recursos</label>  
-                                                <div class="col-xs-5 right">
-                                                    <input name="total_rec_res" type="text" class="form-control input-md" disabled >
+                                                <div class="col-xs-5">
+                                                    <input name="total_rec_res" type="text" class="form-control input-md" style="text-align: left;" disabled >
                                                 </div>
                                             </div>
                                             <div class="form-group">
