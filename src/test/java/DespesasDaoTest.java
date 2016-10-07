@@ -10,16 +10,16 @@ public class DespesasDaoTest {
 
     private final DespesasDao dao = new DespesasDao();
     
-    @Test
-    public void testInsertSemClassif() throws Exception {
-        Despesas desp = new Despesas();
-        desp.setDescricao("Material de limpeza");
-        
-        desp = dao.inserir(desp);
-        
-//        Assert.assertNotNull(desp.getId());
-//        Assert.assertNull(desp.getClassif_despesas_id());
-    }
+//    @Test
+//    public void testInsertSemClassif() throws Exception {
+//        Despesas desp = new Despesas();
+//        desp.setDescricao("Material de limpeza");
+//        
+//        desp = dao.inserir(desp);
+//        
+////        Assert.assertNotNull(desp.getId());
+////        Assert.assertNull(desp.getClassif_despesas_id());
+//    }
     
     
     

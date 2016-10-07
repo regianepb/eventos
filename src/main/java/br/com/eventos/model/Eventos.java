@@ -1,16 +1,15 @@
 package br.com.eventos.model;
 
 import br.com.eventos.util.Utils;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Map;
-import java.util.Objects;
 
 public class Eventos implements Parseable {
     private Long id;
     private String descricao;
-    private String data;
-    private String hora;
+    LocalDate data;
+    LocalTime hora;
     private Long qtd_pessoas;
     private Locais locais_id;
 
@@ -37,19 +36,19 @@ public class Eventos implements Parseable {
         this.descricao = descricao;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
@@ -81,8 +80,8 @@ public class Eventos implements Parseable {
     public void parse(Map<String, String> values) {
         id = Utils.parseLong(values.get("id"));
         descricao = values.get("descricao");
-        data = values.get("data");
-        hora = values.get("hora");
+        data = Utils.parseDate(values.get("data"), "dd/MM/yyyy");
+        hora = Utils.parseTime(values.get("hora"), "hh:mm");
         qtd_pessoas = Utils.parseLong(values.get("qtd_pessoas"));
         locais_id = Utils.isEmpty(values.get("locais_id")) ? null : new Locais(Utils.parseLong(values.get("locais_id")));                       
     }
