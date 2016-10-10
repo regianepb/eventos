@@ -3,6 +3,7 @@ EventosDaoTest.java
 import br.com.eventos.dao.EventosDao;
 import br.com.eventos.model.Eventos;
 import static br.com.eventos.util.Utils.parseDate;
+import static br.com.eventos.util.Utils.parseLong;
 import static br.com.eventos.util.Utils.parseTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,7 +17,7 @@ public class EventosDaoTest {
     private final String descricao = "Festa de Final de Ano da Empresa X";
     private final LocalDate data = parseDate("2016-11-25");
     private final LocalTime hora = parseTime("20:00");
-    private final Long qtd_pessoas = Long.parseLong("350");
+    private final Long qtd_pessoas = parseLong("350");
     
     @Test
     public void testInsertEvento() throws Exception {
@@ -37,6 +38,7 @@ public class EventosDaoTest {
     }    
     
 }
+
 
 
 -------------------------------------------------
