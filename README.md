@@ -1,38 +1,43 @@
 EventosDaoTest.java
 
-
 import br.com.eventos.dao.EventosDao;
 import br.com.eventos.model.Eventos;
-import org.junit.Assert;
+import static br.com.eventos.util.Utils.parseDate;
+import static br.com.eventos.util.Utils.parseTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class EventosDaoTest {
-
+    
     private final EventosDao eventoDao = new EventosDao();
-	private final String descricao = "Festa de Final de Ano da Empresa X";
-	private final LocalDate data = "2016-11-25";
-	private final LocalTime hora = '20:00';
-	private final integer qtd_pessoas = 350;
-			
-	@Test
+    private final String descricao = "Festa de Final de Ano da Empresa X";
+    private final LocalDate data = parseDate("2016-11-25");
+    private final LocalTime hora = parseTime("20:00");
+    private final Long qtd_pessoas = Long.parseLong("350");
+    
+    @Test
     public void testInsertEvento() throws Exception {
         Eventos evento = new Eventos();
-				
+        
         evento.setDescricao(descricao);
-		evento.setData(data); 
-		evento.setHora(hora); 
-		evento.setQtd_pessoas(qtd_pessoas); 
-		 
+        evento.setData(data);        
+        evento.setHora(hora);        
+        evento.setQtd_pessoas(qtd_pessoas);        
+        
         evento = eventoDao.inserir(evento);
         
         assertNotNull(evento);
         assertEquals(evento.getDescricao(), descricao);
-		assertEquals(evento.getData(), data);
-		assertEquals(evento.getHora(), hora);
-		assertEquals(evento.getQtd_pessoas(), qtd_pessoas);
-   }   
+        assertEquals(evento.getData(), data);
+        assertEquals(evento.getHora(), hora);
+        assertEquals(evento.getQtd_pessoas(), qtd_pessoas);
+    }    
     
 }
+
 
 -------------------------------------------------
 trigger e procedure
