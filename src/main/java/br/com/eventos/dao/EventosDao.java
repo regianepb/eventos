@@ -22,8 +22,8 @@ public class EventosDao {
             PreparedStatement stm = Connection.get().getParamStm("INSERT INTO EVENTOS (ID, DESCRICAO, DATA, HORA, QTD_PESSOAS, LOCAIS_ID) VALUES(?, ?, ?, ?, ?, ?)");
             stm.setLong(1, evento.getId());
             stm.setString(2, evento.getDescricao());      
-            stm.setString(3, String.valueOf(evento.getData()));
-            stm.setString(4, String.valueOf(evento.getHora()));   
+            stm.setDate(3, java.sql.Date.valueOf(evento.getData()));
+            stm.setTime(4, java.sql.Time.valueOf(evento.getHora()));   
             stm.setLong(5, evento.getQtd_pessoas());
             if (Utils.isNotNull(evento.getLocais_id(), evento.getLocais_id().getId())) {
                 stm.setLong(6, evento.getLocais_id().getId());
@@ -43,9 +43,8 @@ public class EventosDao {
         try {
             PreparedStatement stm = Connection.get().getParamStm("UPDATE EVENTOS SET DESCRICAO = ?, DATA = ?, HORA = ?, QTD_PESSOAS = ?, LOCAIS_ID = ? WHERE ID = ?");
             stm.setString(1, evento.getDescricao());
-            stm.setString(2, String.valueOf(evento.getData()));
-            stm.setString(3, String.valueOf(evento.getHora()));   
-           
+            stm.setDate(2, java.sql.Date.valueOf(evento.getData()));
+            stm.setTime(3, java.sql.Time.valueOf(evento.getHora()));   
             stm.setLong(4, evento.getQtd_pessoas());
             if (evento.getLocais_id()!= null && evento.getLocais_id().getId() != null) {
                 stm.setLong(5, evento.getLocais_id().getId());

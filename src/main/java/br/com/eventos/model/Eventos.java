@@ -80,8 +80,8 @@ public class Eventos implements Parseable {
     public void parse(Map<String, String> values) {
         id = Utils.parseLong(values.get("id"));
         descricao = values.get("descricao");
-        data = Utils.parseDate(values.get("data"), "dd/MM/yyyy");
-        hora = Utils.parseTime(values.get("hora"), "hh:mm");
+        data = Utils.parseDate(values.get("data"));
+        hora = Utils.parseTime(values.get("hora"));
         qtd_pessoas = Utils.parseLong(values.get("qtd_pessoas"));
         locais_id = Utils.isEmpty(values.get("locais_id")) ? null : new Locais(Utils.parseLong(values.get("locais_id")));                       
     }

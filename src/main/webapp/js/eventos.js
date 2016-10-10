@@ -5,7 +5,7 @@ $(function () {
 
     $('#btnEnviar').click(function () {
         $.post('eventos', $('form[id=eventosForm]').serialize(), function () {
-            limparForm();
+            limparTodasForm();
             carregar();
             $('form').each(function () {
                 this.reset();
@@ -17,7 +17,7 @@ $(function () {
         var idEvento = $("#eventosForm input[name=id]").val();
         $("#EventosRecForm input[name=eventos_id]").val(idEvento);
         $.post('eventos_recursos', $('form[id=EventosRecForm]').serialize(), function () {
-            limparFormEventosRec();
+            limparFormEventosRecModal();
             carregarEventosRecursos(idEvento)();
             $('eventosRecForm').each(function () {
                 this.reset();
@@ -29,7 +29,7 @@ $(function () {
         var idEvento = $("#eventosForm input[name=id]").val();
         $("#EventosDespForm input[name=eventos_id]").val(idEvento);
         $.post('eventos_despesas', $('form[id=EventosDespForm]').serialize(), function () {
-            limparFormEventosDesp();
+            limparFormEventosDespModal();
             carregarEventosDespesas(idEvento)();
             $('eventosDespForm').each(function () {
                 this.reset();
@@ -43,6 +43,12 @@ $(function () {
         carregarEventosRecursos();
         carregarEventosDespesas();
     });
+
+    $('#btnFechar').click(function () {
+        limparTodasForm();
+    });
+
+
 });
 
 function formatDate(value) {
@@ -105,25 +111,32 @@ function excluir(id) {
 }
 
 function limparForm() {
-    $("form[id=eventosForm] input[name=id]").val("");
-    $("form[id=eventosForm] input[name=descricao]").val("");
-    $("form[id=eventosForm] input[name=data]").val("");
-    $("form[id=eventosForm] input[name=hora]").val("");
-    $("form[id=eventosForm] input[name=qtd_pessoas]").val("");
-    $("form[id=eventosForm] select[name=locais_id]").val("");
-
-//    Ver como resetar a tab dos recursos da maneira correta
-//    carregarEventosRecursos(0);    
-    carregarLocais();
+    $("#eventosForm input[name=id]").val("");
+    $("#eventosForm input[name=descricao]").val("");
+    $("#eventosForm input[name=data]").val("");
+    $("#eventosForm input[name=hora]").val("");
+    $("#eventosForm input[name=qtd_pessoas]").val("");
+    $("#eventosForm select[name=locais_id]").val("");
 }
 
 function limparFormEventosRec() {
-    $("form[id=EventosRecForm] input[name=id]").val("");
-    $("form[id=EventosRecForm] input[name=eventos_id]").val("");
-    $("form[id=EventosRecForm] select[name=recursos_id]").val("");
-    $("form[id=EventosRecForm] input[name=qtd]").val("");
-    $("form[id=EventosRecForm] input[name=valor]").val("");
-    $("form[id=EventosRecForm] input[name=total]").val("");
+    window.templateRec = window.templateRec || $('#divTableRec table tbody').html();
+    var respHtml = window.templateRec;
+    $('#divTableRec table tbody').html(respHtml);
+
+    window.templateRecTot = window.templateRecTot || $('#divTableRecTot table tbody').html();
+    var trHtmlTot = window.templateRecTot;
+    var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalRec\}\}/g, 0);
+    $('#divTableRecTot table tbody').html(respHtmlTot);
+}
+
+function limparFormEventosRecModal() {
+    $("#EventosRecForm input[name=id]").val("");
+    $("#EventosRecForm input[name=eventos_id]").val("");
+    $("#EventosRecForm select[name=recursos_id]").val("");
+    $("#EventosRecForm input[name=qtd]").val("");
+    $("#EventosRecForm input[name=valor]").val("");
+    $("#EventosRecForm input[name=total]").val("");
 }
 
 function carregarEventosRecursos(eventos_id) {
@@ -144,12 +157,12 @@ function carregarEventosRecursos(eventos_id) {
                     .replace(/\{\{total\}\}/g, total.toFixed(2));
         });
         $('#divTableRec table tbody').html(respHtml);
-        
+
         window.templateRecTot = window.templateRecTot || $('#divTableRecTot table tbody').html();
         var trHtmlTot = window.templateRecTot;
-        var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));            
-        
-        $('#divTableRecTot table tbody').html(respHtmlTot);        
+        var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalRec\}\}/g, totalDosRec.toFixed(2));
+
+        $('#divTableRecTot table tbody').html(respHtmlTot);
         carregarRecursos();
     });
 
@@ -204,12 +217,23 @@ function calculaTotalRecurso() {
 
 //Despesas
 function limparFormEventosDesp() {
-    $("form[id=EventosDespForm] input[name=id]").val("");
-    $("form[id=EventosDespForm] input[name=eventos_id]").val("");
-    $("form[id=EventosDespForm] select[name=despesas_id]").val("");
-    $("form[id=EventosDespForm] input[name=qtd]").val("");
-    $("form[id=EventosDespForm] input[name=valor]").val("");
-    $("form[id=EventosDespForm] input[name=total]").val("");
+    window.templateDesp = window.templateDesp || $('#divTableDesp table tbody').html();
+    var respHtml = window.templateDesp;
+    $('#divTableDesp table tbody').html(respHtml);
+
+    window.templateDespTot = window.templateDespTot || $('#divTableDespTot table tbody').html();
+    var trHtmlTot = window.templateDespTot;
+    var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalDesp\}\}/g, 0);
+    $('#divTableDespTot table tbody').html(respHtmlTot);
+}
+
+function limparFormEventosDespModal() {
+    $("#EventosDespForm input[name=id]").val("");
+    $("#EventosDespForm input[name=eventos_id]").val("");
+    $("#EventosDespForm select[name=despesas_id]").val("");
+    $("#EventosDespForm input[name=qtd]").val("");
+    $("#EventosDespForm input[name=valor]").val("");
+    $("#EventosDespForm input[name=total]").val("");
 }
 
 function carregarEventosDespesas(eventos_id) {
@@ -230,12 +254,12 @@ function carregarEventosDespesas(eventos_id) {
                     .replace(/\{\{total\}\}/g, total.toFixed(2));
         });
         $('#divTableDesp table tbody').html(respHtml);
-        
+
         window.templateDespTot = window.templateDespTot || $('#divTableDespTot table tbody').html();
         var trHtmlTot = window.templateDespTot;
-        var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalDesp\}\}/g, totalDesp.toFixed(2));            
-        
-        $('#divTableDespTot table tbody').html(respHtmlTot);                
+        var respHtmlTot = trHtmlTot.replace(/\{\{vlrTotalDesp\}\}/g, totalDesp.toFixed(2));
+
+        $('#divTableDespTot table tbody').html(respHtmlTot);
         carregarDespesas();
     });
 
@@ -289,14 +313,13 @@ function calculaTotalDespesa() {
 
 
 function verificarTab() {
-    var idEvento = $("#eventosForm input[name=id]").val();
-    if (idEvento === "") {
-        $('.nav-tabs a[href="#eventos"]').tab('show');
-        alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
-    } else {
-//        alert("gravado");
-    }
-    ;
+//    var idEvento = $("#eventosForm input[name=id]").val();
+//    if (idEvento === "") {
+//        $('.nav-tabs a[href="#eventos"]').tab('show');
+//        alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
+//    } else {
+////        alert("gravado");
+//    };
 }
 
 
@@ -326,7 +349,17 @@ function calcularResumo() {
         $("#resumoForm input[name=total_desp_res]").val(totalGeralDesp.toFixed(2));
         $("#resumoForm input[name=saldo_res]").val(saldo.toFixed(2));
     });
+}
 
+function limparFormResumo() {
+    $("#resumoForm input[name=total_rec_res]").val("");
+    $("#resumoForm input[name=total_desp_res]").val("");
+    $("#resumoForm input[name=saldo_res]").val("");
+}
 
-
+function limparTodasForm() {
+    limparForm();
+    limparFormEventosRec();
+    limparFormEventosDesp();
+    limparFormResumo();
 }

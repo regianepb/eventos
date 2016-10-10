@@ -16,12 +16,12 @@ public final class Utils {
         throw new UnsupportedOperationException("Classe não pode ser instanciada por ser um utilitário.");
     }
     
-    public static LocalDate parseDate(String value, String pattern) {
-        return isEmpty(value) ? null : LocalDate.parse(value, DateTimeFormatter.ofPattern(pattern));
+    public static LocalDate parseDate(String value) {
+        return isEmpty(value) ? null : LocalDate.parse(value);
     }
     
-    public static LocalTime parseTime(String value, String pattern) {
-        return isEmpty(value) ? null : LocalTime.parse(value, DateTimeFormatter.ofPattern(pattern));        
+    public static LocalTime parseTime(String value) {
+        return isEmpty(value) ? null : LocalTime.parse(value);        
     }    
 
     public static BigDecimal parseDecimal(String value) {

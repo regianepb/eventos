@@ -4,22 +4,24 @@
 		- Formatar totais 
 		- Carregar total ao editar OK
 		- Gravar o editar OK
-		- Demonstrar total dos recursos e das despesas em cada guia
+		- Demonstrar total dos recursos e das despesas em cada guia OK
 		
 	- Fazer a parte das despesas OK
 	
 	- Fazer o resumo na primeira tela OK
             Não vou fazer mais na primeira tela, vou deixar na guia resumo OK
 
-	- Fazer tela com next pois ele tem que gravar o evento primeiro
+	- Ver o problema do time OK 
 	
-	- Ver o problema do time
+	- Limpar quando fechar a janela OK
+
+        - Fazer tela com next pois ele tem que gravar o evento primeiro
 	
-	- Limpar quando fechar a janela
 	
 - Classe de Testes
 - Procedures 
 - Triggers
+
 - menu generico
 - sobre
 
