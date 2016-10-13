@@ -125,7 +125,27 @@ ALTER SEQUENCE SEQ_EVENTOS_DESPESAS RESTART WITH 5;
 CREATE SEQUENCE IF NOT EXISTS public.SEQ_EVENTOS_RECURSOS;
 ALTER SEQUENCE SEQ_EVENTOS_RECURSOS RESTART WITH 5;
 
+/*======================================================================================*/
 
+DROP TRIGGER IF EXISTS tg_checagem_eventos ON eventos;
+
+CREATE TRIGGER tg_checagem_eventos before INSERT, UPDATE ON eventos FOR EACH ROW EXECUTE PROCEDURE f_checagem_eventos();
+
+CREATE OR REPLACE FUNCTION f_checagem_eventos() RETURNS trigger AS $$ DECLARE w_existe_evento integer; BEGIN
+
+SELECT count(*) 
+  INTO w_existe_evento
+  FROM eventos 
+ WHERE DESCRICAO = NEW.DESCRICAO and
+       data = new.data and
+       hora = new.hora;
+
+if w_existe_evento > 0 then
+    RAISE EXCEPTION 'Já existe um evento cadastrado com essa mesma descrição, data e horário. (%)', NEW.descricao||' - '||NEW.data||' '||NEW.hora;
+end if; 
+END; $$ LANGUAGE plpgsql;
+
+/*======================================================================================*/
 COMMIT;
 
 
