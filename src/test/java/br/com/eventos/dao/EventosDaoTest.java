@@ -1,3 +1,5 @@
+package br.com.eventos.dao;
+
 
 import br.com.eventos.dao.EventosDao;
 import br.com.eventos.model.Eventos;
@@ -31,11 +33,15 @@ public class EventosDaoTest {
         evento.setLocais_id(local);
         
         evento = eventoDao.inserir(evento);
+        evento = eventoDao.inserir(evento);
         
         assertNotNull(evento);
         assertEquals(evento.getDescricao(), descricao);
         assertEquals(evento.getData(), data);
         assertEquals(evento.getHora(), hora);
         assertEquals(evento.getQtd_pessoas(), qtd_pessoas);
+        
+        eventoDao.excluir(evento.getId());
+        
     }
 }

@@ -2,14 +2,13 @@ package br.com.eventos.dao;
 
 import br.com.eventos.model.Eventos;
 import br.com.eventos.util.Utils;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import org.postgresql.util.PSQLException;
 
 
 public class EventosDao {
@@ -34,6 +33,11 @@ public class EventosDao {
             stm.execute();
 
             return buscar(evento.getId());
+            
+                
+                
+        } catch (PSQLException ex) {
+            throw new Exception(ex.getMessage(), ex);
         } catch (SQLException ex) {
             throw new Exception("Erro ao inserir o registro", ex);
         }

@@ -75,7 +75,7 @@ public class LocaisDao {
     }
 
     public Locais buscar(Long id) throws Exception {
-        if (id == null) {
+        if (id == null || id == 0) {
             return null;
         } else {
             try {
