@@ -17,11 +17,12 @@
 
         - Fazer tela com next pois ele tem que gravar o evento primeiro
 	
+        - Formatar Data
 	
-- Classe de Testes
-- Procedures 
-- Triggers
+- Classe de Testes OK
+- Procedures OK
+- Triggers OK
 
-- menu generico
+- menu generico - Vou deixar assim
 - sobre
 

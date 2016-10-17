@@ -131,8 +131,6 @@ public class EventosDao {
             e.setDescricao(rs.getString("descricao"));
             e.setData(rs.getDate("data").toLocalDate());
             e.setHora(rs.getTime("hora").toLocalTime());
-            /*e.setData(rs.getDate("data") == null ? null : rs.getDate("data").toLocalDate());
-            e.setHora(rs.getTime("hora") == null ? null : rs.getTime("hora").toLocalTime());*/
             e.setQtd_pessoas(rs.getLong("qtd_pessoas"));
             e.setLocais_id(localDao.buscar(rs.getLong("locais_id")));
 

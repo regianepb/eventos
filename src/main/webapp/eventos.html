@@ -132,7 +132,7 @@
 
                         <div>
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
+                            <ul id = "tabseve" class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#eventos" aria-controls="home" role="tabEvento" data-toggle="tab">Eventos</a></li>
                                 <li role="presentation"><a href="#recursos" aria-controls="recursos" role="tabRecurso"  data-toggle="tab" onclick="verificarTab()">Recursos</a></li>
                                 <li role="presentation"><a href="#despesas" aria-controls="despesas" role="tabDespesa" data-toggle="tab" onclick="verificarTab()">Despesas</a></li>
@@ -149,7 +149,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Descrição</label>  
                                                 <div class="col-xs-5">
-                                                    <input name="descricao" type="text" class="form-control input-md" placeholder="Descrição"  required>
+                                                    <input name="descricao" type="text" maxlength="100" class="form-control input-md" placeholder="Descrição"  required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -167,7 +167,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Quantidade público</label>                                                      
                                                 <div class="col-xs-5">
-                                                    <input name="qtd_pessoas" type="text" class="form-control" placeholder="Quantidade público">
+                                                    <input name="qtd_pessoas" type="text" maxlength="6" class="form-control" placeholder="Quantidade público">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -186,7 +186,6 @@
                                     <div class="form-group">
                                         <form id="recursosForm" class="form-horizontal">
                                             <div class="form-group" id="divTableRec">
-
 
                                                 <div class="col-md-12" style="margin-bottom:10px;" id="divTableRec"> 
                                                     <div class="row" style="margin-bottom:15px;">
@@ -297,8 +296,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                </div>
-                                                <div class="form-group" id="divTableDespTot">
+                                            </div>
+                                            <div class="form-group" id="divTableDespTot">
                                                 <div class="col-md-12" style="margin-bottom:10px;" >
                                                     <table id="TableEveTotDesp" class="table table-bordered table-striped  table-condensed">
                                                         <tbody>
@@ -340,11 +339,6 @@
                                         </form> 
                                     </div>
                                 </div>
-
-
-
-
-
                             </div>
                         </div>
 
@@ -380,7 +374,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Quantidade</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="qtd" type="text" class="form-control" placeholder="Quantidade" onchange="calculaTotalRecurso()">
+                                    <input name="qtd" type="text"  maxlength="6" class="form-control" placeholder="Quantidade" onchange="calculaTotalRecurso()">
                                 </div>
                             </div>                            
                             <div class="form-group">
@@ -425,7 +419,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Quantidade</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="qtd" type="text" class="form-control" placeholder="Quantidade" onchange="calculaTotalDespesa()">
+                                    <input name="qtd" type="text"  maxlength="6" class="form-control" placeholder="Quantidade" onchange="calculaTotalDespesa()">
                                 </div>
                             </div>                            
                             <div class="form-group">

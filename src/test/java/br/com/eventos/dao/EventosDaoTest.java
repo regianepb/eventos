@@ -32,8 +32,7 @@ public class EventosDaoTest {
         evento.setQtd_pessoas(qtd_pessoas);
         evento.setLocais_id(local);
         
-        evento = eventoDao.inserir(evento);
-        evento = eventoDao.inserir(evento);
+        evento = eventoDao.inserir(evento);        
         
         assertNotNull(evento);
         assertEquals(evento.getDescricao(), descricao);
