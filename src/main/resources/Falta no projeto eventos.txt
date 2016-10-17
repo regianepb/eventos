@@ -17,7 +17,7 @@
 
         - Fazer tela com next pois ele tem que gravar o evento primeiro
 	
-        - Formatar Data
+        - Formatar Data OK
 	
 - Classe de Testes OK
 - Procedures OK

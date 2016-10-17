@@ -2,7 +2,8 @@ $(function () {
     carregar();
     carregarLocais();
     carregarDespesas();
-
+    
+       
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var target = e.target.attributes.href.value;
         $(event.target.attributes.href.eventos).focus();
@@ -58,9 +59,8 @@ $(function () {
 });
 
 function formatDate(value) {
-    if (value)
-        return new Date(value).toLocaleDateString('pt-BR');
-    return "";
+    var data = value.split('-');
+    return data[2] + "/"+ data[1] + "/" + data[0];
 }
 
 function carregar() {
@@ -72,7 +72,7 @@ function carregar() {
             respHtml += trHtml
                     .replace(/\{\{id\}\}/g, item.id)
                     .replace(/\{\{descricao\}\}/g, item.descricao)
-                    .replace(/\{\{data\}\}/g, item.data.toLocaleString())
+                    .replace(/\{\{data\}\}/g, formatDate(item.data))
                     .replace(/\{\{hora\}\}/g, item.hora)
                     .replace(/\{\{qtd_pessoas\}\}/g, item.qtd_pessoas)
                     .replace(/\{\{locais_id\}\}/g, item.locais_id.descricao);
@@ -104,6 +104,7 @@ function editar(id) {
         carregarEventosRecursos(name = id);
         carregarEventosDespesas(name = id);
     });
+    $('#eventos').focus();
 }
 
 function excluir(id) {
