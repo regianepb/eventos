@@ -1,7 +1,7 @@
 - Tela principal de eventos
 	- Tela de recursos
 		- Ajustar editar - OK
-		- Formatar totais 
+		- Formatar totais - OK
 		- Carregar total ao editar OK
 		- Gravar o editar OK
 		- Demonstrar total dos recursos e das despesas em cada guia OK

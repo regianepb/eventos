@@ -61,7 +61,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-6" >
-                        <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#adicionar">Novo Evento</button>  
+                        <button type="button" id = "btnNvoEvento" class="btn btn-primary btn-md" data-toggle="modal" data-target="#adicionar">Novo Evento</button>  
                     </div>
                     <form role="search">
                         <div class="col-md-6" class="pull-right">
@@ -321,19 +321,19 @@
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Total dos Recursos</label>  
                                                 <div class="col-xs-5">
-                                                    <input name="total_rec_res" type="text" class="form-control input-md" style="text-align: left;" disabled >
+                                                    <input name="total_rec_res" type="text" class="numeric form-control input-md" style="text-align: left;" disabled >
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Total das Despesas</label>  
                                                 <div class="col-xs-5 right">
-                                                    <input name="total_desp_res" type="text" class="form-control input-md" disabled >
+                                                    <input name="total_desp_res" type="text" class="numeric form-control input-md" disabled >
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-xs-3">Saldo do evento</label>  
                                                 <div class="col-xs-5 left">
-                                                    <input name="saldo_res" type="text" class="form-control input-md" disabled >
+                                                    <input name="saldo_res" type="text" class="numeric form-control input-md" disabled >
                                                 </div>
                                             </div>
                                         </form> 
@@ -380,7 +380,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Valor</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="valor" type="text" class="form-control" placeholder="Valor" onchange="calculaTotalRecurso()">
+                                    <input name="valor" type="text" class="form-control" placeholder="Valor" onKeyPress="return(MascaraMoeda(this,'.',',',event))" onchange="calculaTotalRecurso()">
                                 </div>
                             </div>                                                      
                             <div class="form-group">
@@ -425,7 +425,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Valor</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="valor" type="text" class="form-control" placeholder="Valor" onchange="calculaTotalDespesa()">
+                                    <input name="valor" type="text" class="numeric form-control" placeholder="Valor" onchange="calculaTotalDespesa()">
                                 </div>
                             </div>                                                      
                             <div class="form-group">
