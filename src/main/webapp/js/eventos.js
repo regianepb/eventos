@@ -323,12 +323,6 @@ function calculaTotalDespesa() {
 
 
 function verificarTab() {
-
-//    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-//        var target = e.target.attributes.href.value;
-//        alert(target);
-//  $('#eventos').focus();
-//    });
 ////    var idEvento = $("#eventosForm input[name=id]").val();
 //    if (idEvento === "") {
 //        $('.nav-tabs a[href="#eventos"]').tab('show');
