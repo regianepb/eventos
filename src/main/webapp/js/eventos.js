@@ -2,19 +2,23 @@ $(function () {
     carregar();
     carregarLocais();
     carregarDespesas();
-    
+
     $('#btnNvoEvento').click(function () {
-        $('a[data-toggle="tab"]').hide();        
+         $("#btnNvoRecurso").attr("disabled","disabled");
+         $("#btnNvaDespesa").attr("disabled","disabled");
     });
-        
+
+
+
     $('#btnEnviar').click(function () {
         $.post('eventos', $('form[id=eventosForm]').serialize(), function () {
-            $('a[data-toggle="tab"]').show();        
-            limparTodasForm();
-            carregar();
-            $('form').each(function () {
-                this.reset();
-            });
+            $("#btnNvoRecurso").removeAttr('disabled');
+            $("#btnNvaDespesa").removeAttr('disabled');
+//            limparTodasForm();
+//            carregar();
+//            $('form').each(function () {
+//                this.reset();
+//            });
         });
     });
 
@@ -58,7 +62,7 @@ $(function () {
 
 function formatDate(value) {
     var data = value.split('-');
-    return data[2] + "/"+ data[1] + "/" + data[0];
+    return data[2] + "/" + data[1] + "/" + data[0];
 }
 
 function formatNumber(value) {
@@ -107,8 +111,8 @@ function editar(id) {
         $("form[id=eventosForm] select[name=locais_id]").val(data.locais_id.id);
         carregarEventosRecursos(name = id);
         carregarEventosDespesas(name = id);
+//        $('a[data-toggle="tab"]').show();        
     });
-    $('#eventos').focus();
 }
 
 function excluir(id) {
@@ -323,13 +327,13 @@ function calculaTotalDespesa() {
 
 
 function verificarTab() {
-////    var idEvento = $("#eventosForm input[name=id]").val();
+//    var idEvento = $("#eventosForm input[name=id]").val();
 //    if (idEvento === "") {
-//        $('.nav-tabs a[href="#eventos"]').tab('show');
+//        $('.nav-tabs a[href="#eventos"]').focus();
+//        $('.nav-tabs a[href="#eventos"]').show();
 //        alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
-//    } else {
-////        alert("gravado");
-//    };
+//    }
+//    ;
 }
 
 

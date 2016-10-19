@@ -134,9 +134,9 @@
                             <!-- Nav tabs -->
                             <ul id = "tabseve" class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#eventos" aria-controls="home" role="tabEvento" data-toggle="tab">Eventos</a></li>
-                                <li role="presentation"><a href="#recursos" aria-controls="recursos" role="tabRecurso"  data-toggle="tab" onclick="verificarTab()">Recursos</a></li>
-                                <li role="presentation"><a href="#despesas" aria-controls="despesas" role="tabDespesa" data-toggle="tab" onclick="verificarTab()">Despesas</a></li>
-                                <li role="presentation"><a href="#resumo" aria-controls="resumo" role="tabResumo" data-toggle="tab" onclick="calcularResumo()">Resumo</a></li>
+                                <li role="presentation" ><a href="#recursos" aria-controls="recursos" role="tabRecurso"  data-toggle="tab" onclick="verificarTab()">Recursos</a></li>
+                                <li role="presentation" ><a href="#despesas" aria-controls="despesas" role="tabDespesa" data-toggle="tab" onclick="verificarTab()">Despesas</a></li>
+                                <li role="presentation" ><a href="#resumo" aria-controls="resumo" role="tabResumo" data-toggle="tab" onclick="calcularResumo()">Resumo</a></li>
                             </ul>
 
                             <!-- Tab panes -->
@@ -190,7 +190,7 @@
                                                 <div class="col-md-12" style="margin-bottom:10px;" id="divTableRec"> 
                                                     <div class="row" style="margin-bottom:15px;">
                                                         <div class="col-md-6">
-                                                            <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#adicionarRec">Novo Recurso</button>  
+                                                            <button type="button" class="btn btn-primary btn-md" id="btnNvoRecurso" data-toggle="modal" data-target="#adicionarRec">Novo Recurso</button>  
                                                         </div>
                                                     </div>
                                                     <table id="TableEveRec" class="table table-bordered table-striped  table-condensed">
@@ -256,7 +256,7 @@
                                                 <div class="col-md-12" style="margin-bottom:10px;" id="divTableDesp"> 
                                                     <div class="row" style="margin-bottom:15px;">
                                                         <div class="col-md-6">
-                                                            <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#adicionarDesp">Nova Despesa</button>  
+                                                            <button type="button" class="btn btn-primary btn-md" id="btnNvaDespesa" data-toggle="modal" data-target="#adicionarDesp">Nova Despesa</button>  
                                                         </div>
                                                     </div>
                                                     <table id="TableEveDesp" class="table table-bordered table-striped  table-condensed">
@@ -345,7 +345,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btnFechar" on-click="limparForm()">Fechar</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnEnviar">Gravar</button>
+                        <button type="button" class="btn btn-primary" id="btnEnviar">Gravar</button> 
                     </div>
                 </div>
             </div>
