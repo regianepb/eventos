@@ -44,7 +44,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="sobre.html">Sobre</a>
+                            <a href="sobre.html" target="_blank">Sobre</a>     
                         </li>
                     </ul>
                 </div>
@@ -345,7 +345,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btnFechar" on-click="limparForm()">Fechar</button>
-                        <button type="button" class="btn btn-primary" id="btnEnviar">Gravar</button> 
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnEnviar">Gravar</button> 
                     </div>
                 </div>
             </div>
@@ -380,7 +380,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-3">Valor</label>                                                      
                                 <div class="col-xs-5">
-                                    <input name="valor" type="text" class="form-control" placeholder="Valor" onKeyPress="return(MascaraMoeda(this,'.',',',event))" onchange="calculaTotalRecurso()">
+                                    <input name="valor" type="text" class="form-control" placeholder="Valor" onchange="calculaTotalRecurso()">
                                 </div>
                             </div>                                                      
                             <div class="form-group">
@@ -454,5 +454,4 @@
         <script src="js/eventos.js"></script>
 
     </body>
-
 </html>

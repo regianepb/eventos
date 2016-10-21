@@ -1,24 +1,16 @@
 $(function () {
     carregar();
     carregarLocais();
+    carregarRecursos();
     carregarDespesas();
-
-    $('#btnNvoEvento').click(function () {
-         $("#btnNvoRecurso").attr("disabled","disabled");
-         $("#btnNvaDespesa").attr("disabled","disabled");
-    });
-
-
 
     $('#btnEnviar').click(function () {
         $.post('eventos', $('form[id=eventosForm]').serialize(), function () {
-            $("#btnNvoRecurso").removeAttr('disabled');
-            $("#btnNvaDespesa").removeAttr('disabled');
-//            limparTodasForm();
-//            carregar();
-//            $('form').each(function () {
-//                this.reset();
-//            });
+            limparTodasForm();
+            carregar();
+            $('form').each(function () {
+                this.reset();
+            });
         });
     });
 
@@ -56,7 +48,6 @@ $(function () {
     $('#btnFechar').click(function () {
         limparTodasForm();
     });
-
 
 });
 
@@ -111,7 +102,6 @@ function editar(id) {
         $("form[id=eventosForm] select[name=locais_id]").val(data.locais_id.id);
         carregarEventosRecursos(name = id);
         carregarEventosDespesas(name = id);
-//        $('a[data-toggle="tab"]').show();        
     });
 }
 
@@ -121,9 +111,10 @@ function excluir(id) {
     }).success(function () {
         carregar();
     }).error(function () {
-        alert("Não é possível excluir esse registro pois ele possui dependências.");
+        alert("Não é possível excluir esse registro pois ele possui dependências. ");
     });
 }
+
 
 function limparForm() {
     $("#eventosForm input[name=id]").val("");
@@ -212,9 +203,10 @@ function excluirRec(id) {
         var idEvento = $("#eventosForm input[name=id]").val();
         carregarEventosRecursos(idEvento);
     }).error(function () {
-        alert("Não é possível excluir esse registro pois ele possui dependências.");
+        alert("Não é possível excluir esse recurso.");
     });
 }
+
 
 function calculaTotalRecurso() {
     var qtd = $("#EventosRecForm input[name=qtd]").val();
@@ -309,7 +301,7 @@ function excluirDesp(id) {
         var idEvento = $("#eventosForm input[name=id]").val();
         carregarEventosDespesas(idEvento);
     }).error(function () {
-        alert("Não é possível excluir esse registro pois ele possui dependências.");
+        alert("Não é possível excluir essa despesa.");
     });
 }
 
@@ -327,13 +319,13 @@ function calculaTotalDespesa() {
 
 
 function verificarTab() {
-//    var idEvento = $("#eventosForm input[name=id]").val();
-//    if (idEvento === "") {
-//        $('.nav-tabs a[href="#eventos"]').focus();
-//        $('.nav-tabs a[href="#eventos"]').show();
-//        alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
-//    }
-//    ;
+    var idEvento = $("#eventosForm input[name=id]").val();
+    if (idEvento === "") {
+        $('.nav-tabs a[href="#eventos"]').focus();
+        $('.nav-tabs a[href="#eventos"]').show();
+        alert("O evento ainda não foi gravado. Para inserir os recursos e despesas é necessário gravar o Evento.");
+    }
+    ;
 }
 
 
